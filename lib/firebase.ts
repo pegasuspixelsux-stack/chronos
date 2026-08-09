@@ -1,7 +1,6 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
-import { getStorage, type FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -31,19 +30,6 @@ export function getFirebaseAuth(): Auth {
     cachedAuth = getAuth(app);
   }
   return cachedAuth;
-}
-
-// Same lazy-init pattern as getFirebaseAuth() above, applied consistently:
-// Storage is only ever needed from admin-only client components (image
-// upload/delete), so there's no reason to pay its init cost — or risk
-// repeating the same class of build-time bug — on every route.
-let cachedStorage: FirebaseStorage | null = null;
-
-export function getFirebaseStorage(): FirebaseStorage {
-  if (!cachedStorage) {
-    cachedStorage = getStorage(app);
-  }
-  return cachedStorage;
 }
 
 export { app, db };

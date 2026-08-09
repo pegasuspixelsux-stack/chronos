@@ -1,7 +1,21 @@
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { getFirebaseStorage } from "@/lib/firebase";
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes, type FirebaseStorage } from "firebase/storage";
+import { app } from "@/lib/firebase";
 
 const PROPERTY_IMAGES_PATH = "property-images";
+
+// Same lazy-init pattern as lib/firebase.ts's getFirebaseAuth(): Storage is
+// only ever needed from admin-only client components (image upload/delete),
+// so it's kept local to this module rather than lib/firebase.ts — that way
+// routes that only need Auth (e.g. /admin/login) never pull the Storage SDK
+// into their bundle.
+let cachedStorage: FirebaseStorage | null = null;
+
+function getFirebaseStorage(): FirebaseStorage {
+  if (!cachedStorage) {
+    cachedStorage = getStorage(app);
+  }
+  return cachedStorage;
+}
 
 export async function uploadPropertyImage(file: File): Promise<string> {
   const sanitizedName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");

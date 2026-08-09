@@ -7,6 +7,7 @@ import {
   isAllowedImageFile,
   mapDocToProperty,
   matchesFilters,
+  removedImageUrls,
 } from "@/lib/property-utils";
 import type { Property } from "@/lib/types";
 
@@ -188,5 +189,29 @@ describe("canAddImages", () => {
 
   it("allows adding to an empty gallery", () => {
     expect(canAddImages([], 5)).toBe(true);
+  });
+});
+
+describe("removedImageUrls", () => {
+  it("returns urls present in before but not in after", () => {
+    const before = ["a.jpg", "b.jpg", "c.jpg"];
+    const after = ["a.jpg", "c.jpg"];
+    expect(removedImageUrls(before, after)).toEqual(["b.jpg"]);
+  });
+
+  it("returns an empty array when nothing was removed", () => {
+    const before = ["a.jpg", "b.jpg"];
+    const after = ["a.jpg", "b.jpg"];
+    expect(removedImageUrls(before, after)).toEqual([]);
+  });
+
+  it("returns all urls when everything was removed", () => {
+    const before = ["a.jpg", "b.jpg"];
+    const after: string[] = [];
+    expect(removedImageUrls(before, after)).toEqual(["a.jpg", "b.jpg"]);
+  });
+
+  it("returns an empty array when before is already empty", () => {
+    expect(removedImageUrls([], ["a.jpg"])).toEqual([]);
   });
 });

@@ -38,8 +38,14 @@ export default function ImageGalleryUpload({
     try {
       const uploadedUrls = await Promise.all(files.map((file) => uploadPropertyImage(file)));
       onChange([...value, ...uploadedUrls]);
-    } catch {
-      setError("Could not upload one or more images. Check your connection and try again.");
+    } catch (err) {
+      console.error("Image upload failed:", err);
+      const code = err && typeof err === "object" && "code" in err ? (err as { code: string }).code : undefined;
+      setError(
+        code === "storage/unauthorized"
+          ? "You may not be authorized to upload images. Check that your account is in the admins allowlist."
+          : "Could not upload one or more images. Check your connection and try again."
+      );
     } finally {
       setUploadingCount(0);
       if (inputRef.current) inputRef.current.value = "";

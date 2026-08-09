@@ -29,6 +29,7 @@ export {
   HERO_SLIDER_LIMIT,
   isAllowedImageFile,
   canAddImages,
+  removedImageUrls,
   MAX_IMAGES_PER_PROPERTY,
 } from "@/lib/property-utils";
 

@@ -63,3 +63,7 @@ export function isAllowedImageFile(file: File): boolean {
 export function canAddImages(current: string[], addingCount: number): boolean {
   return current.length + addingCount <= MAX_IMAGES_PER_PROPERTY;
 }
+
+export function removedImageUrls(before: string[], after: string[]): string[] {
+  return before.filter((url) => !after.includes(url));
+}

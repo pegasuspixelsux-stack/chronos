@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import PropertyForm from "@/components/admin/PropertyForm";
 import { deleteProperty, subscribeToProperties, updateProperty } from "@/lib/properties";
-import { countSliderSlots, formatPrice } from "@/lib/property-utils";
+import { countSliderSlots, formatPrice, removedImageUrls } from "@/lib/property-utils";
 import { deleteImages } from "@/lib/storage";
 import type { Property, PropertyInput } from "@/lib/types";
 
@@ -34,7 +34,7 @@ export default function PropertiesDashboardPage() {
 
   async function handleUpdate(values: PropertyInput) {
     if (!editingId || !editingProperty) return;
-    const removedUrls = editingProperty.imageUrls.filter((url) => !values.imageUrls.includes(url));
+    const removedUrls = removedImageUrls(editingProperty.imageUrls, values.imageUrls);
     await updateProperty(editingId, values);
     setEditingId(null);
     if (removedUrls.length > 0) {

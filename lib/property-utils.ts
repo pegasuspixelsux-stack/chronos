@@ -2,6 +2,9 @@ import { Timestamp, type DocumentData } from "firebase/firestore";
 import type { Property, PropertyFilters } from "@/lib/types";
 
 export const HERO_SLIDER_LIMIT = 5;
+export const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+export const MAX_IMAGES_PER_PROPERTY = 10;
+export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export function mapDocToProperty(id: string, data: DocumentData): Property {
   const createdAt = data.createdAt instanceof Timestamp ? data.createdAt.toMillis() : Date.now();
@@ -15,7 +18,11 @@ export function mapDocToProperty(id: string, data: DocumentData): Property {
     bedrooms: data.bedrooms ?? 0,
     bathrooms: data.bathrooms ?? 0,
     areaSqm: data.areaSqm ?? 0,
-    imageUrl: data.imageUrl ?? "",
+    imageUrls: Array.isArray(data.imageUrls)
+      ? data.imageUrls
+      : typeof data.imageUrl === "string" && data.imageUrl
+        ? [data.imageUrl]
+        : [],
     featured: data.featured ?? false,
     inHeroSlider: data.inHeroSlider ?? false,
     createdAt,
@@ -47,4 +54,12 @@ export function matchesFilters(property: Property, filters: PropertyFilters): bo
 
 export function countSliderSlots(properties: Property[], excludeId?: string): number {
   return properties.filter((property) => property.inHeroSlider && property.id !== excludeId).length;
+}
+
+export function isAllowedImageFile(file: File): boolean {
+  return (ALLOWED_IMAGE_TYPES as string[]).includes(file.type) && file.size <= MAX_IMAGE_SIZE_BYTES;
+}
+
+export function canAddImages(current: string[], addingCount: number): boolean {
+  return current.length + addingCount <= MAX_IMAGES_PER_PROPERTY;
 }

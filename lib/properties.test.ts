@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { Timestamp } from "firebase/firestore";
-import { countSliderSlots, formatPrice, mapDocToProperty, matchesFilters } from "@/lib/property-utils";
+import {
+  canAddImages,
+  countSliderSlots,
+  formatPrice,
+  isAllowedImageFile,
+  mapDocToProperty,
+  matchesFilters,
+} from "@/lib/property-utils";
 import type { Property } from "@/lib/types";
 
 describe("mapDocToProperty", () => {
@@ -15,7 +22,7 @@ describe("mapDocToProperty", () => {
       bedrooms: 3,
       bathrooms: 2,
       areaSqm: 140,
-      imageUrl: "https://example.com/house.jpg",
+      imageUrls: ["https://example.com/house.jpg", "https://example.com/house-2.jpg"],
       featured: true,
       inHeroSlider: true,
       createdAt,
@@ -31,11 +38,19 @@ describe("mapDocToProperty", () => {
       bedrooms: 3,
       bathrooms: 2,
       areaSqm: 140,
-      imageUrl: "https://example.com/house.jpg",
+      imageUrls: ["https://example.com/house.jpg", "https://example.com/house-2.jpg"],
       featured: true,
       inHeroSlider: true,
       createdAt: 1700000000000,
     });
+  });
+
+  it("wraps a legacy single imageUrl string into imageUrls for pre-gallery documents", () => {
+    const property = mapDocToProperty("legacy1", {
+      title: "Old Listing",
+      imageUrl: "https://example.com/old-house.jpg",
+    });
+    expect(property.imageUrls).toEqual(["https://example.com/old-house.jpg"]);
   });
 
   it("fills in safe defaults for missing fields", () => {
@@ -45,6 +60,7 @@ describe("mapDocToProperty", () => {
     expect(property.propertyType).toBe("House");
     expect(property.featured).toBe(false);
     expect(property.inHeroSlider).toBe(false);
+    expect(property.imageUrls).toEqual([]);
   });
 });
 
@@ -65,7 +81,7 @@ describe("matchesFilters", () => {
     bedrooms: 3,
     bathrooms: 2,
     areaSqm: 140,
-    imageUrl: "",
+    imageUrls: [],
     featured: true,
     inHeroSlider: false,
     createdAt: 0,
@@ -108,7 +124,7 @@ describe("countSliderSlots", () => {
       bedrooms: 1,
       bathrooms: 1,
       areaSqm: 50,
-      imageUrl: "",
+      imageUrls: [],
       featured: false,
       inHeroSlider: false,
       createdAt: 0,
@@ -136,5 +152,41 @@ describe("countSliderSlots", () => {
   it("returns 0 when no properties are in the slider", () => {
     const properties = [makeProperty({ id: "1", inHeroSlider: false })];
     expect(countSliderSlots(properties)).toBe(0);
+  });
+});
+
+describe("isAllowedImageFile", () => {
+  it("accepts a JPEG under the size limit", () => {
+    const file = new File([new Uint8Array(1024)], "photo.jpg", { type: "image/jpeg" });
+    expect(isAllowedImageFile(file)).toBe(true);
+  });
+
+  it("accepts PNG and WebP", () => {
+    expect(isAllowedImageFile(new File([], "a.png", { type: "image/png" }))).toBe(true);
+    expect(isAllowedImageFile(new File([], "a.webp", { type: "image/webp" }))).toBe(true);
+  });
+
+  it("rejects an unsupported file type", () => {
+    const file = new File([new Uint8Array(1024)], "doc.pdf", { type: "application/pdf" });
+    expect(isAllowedImageFile(file)).toBe(false);
+  });
+
+  it("rejects a file over 5MB", () => {
+    const file = new File([new Uint8Array(6 * 1024 * 1024)], "huge.jpg", { type: "image/jpeg" });
+    expect(isAllowedImageFile(file)).toBe(false);
+  });
+});
+
+describe("canAddImages", () => {
+  it("allows adding up to the 10-image cap", () => {
+    expect(canAddImages(new Array(8).fill(""), 2)).toBe(true);
+  });
+
+  it("rejects adding past the 10-image cap", () => {
+    expect(canAddImages(new Array(8).fill(""), 3)).toBe(false);
+  });
+
+  it("allows adding to an empty gallery", () => {
+    expect(canAddImages([], 5)).toBe(true);
   });
 });

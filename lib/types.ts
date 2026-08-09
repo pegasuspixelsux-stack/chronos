@@ -12,7 +12,7 @@ export interface Property {
   bedrooms: number;
   bathrooms: number;
   areaSqm: number;
-  imageUrl: string;
+  imageUrls: string[];
   featured: boolean;
   inHeroSlider: boolean;
   createdAt: number;

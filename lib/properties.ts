@@ -21,7 +21,16 @@ import type { Property, PropertyInput } from "@/lib/types";
 
 const PROPERTIES_COLLECTION = "properties";
 
-export { mapDocToProperty, formatPrice, matchesFilters, countSliderSlots, HERO_SLIDER_LIMIT } from "@/lib/property-utils";
+export {
+  mapDocToProperty,
+  formatPrice,
+  matchesFilters,
+  countSliderSlots,
+  HERO_SLIDER_LIMIT,
+  isAllowedImageFile,
+  canAddImages,
+  MAX_IMAGES_PER_PROPERTY,
+} from "@/lib/property-utils";
 
 export async function getAllProperties(): Promise<Property[]> {
   const snapshot = await getDocs(

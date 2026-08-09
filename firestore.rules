@@ -12,13 +12,20 @@ service cloud.firestore {
 
     match /leads/{leadId} {
       allow read, update, delete: if isAdmin();
-      allow create: if request.resource.data.keys().hasAll(
-          ['propertyId', 'propertyTitle', 'name', 'email', 'message', 'status', 'createdAt']
+      allow create: if request.resource.data.keys().hasOnly(
+          ['propertyId', 'propertyTitle', 'name', 'email', 'phone', 'message', 'status', 'createdAt']
+        )
+        && request.resource.data.keys().hasAll(
+          ['propertyId', 'propertyTitle', 'name', 'email', 'phone', 'message', 'status', 'createdAt']
         )
         && request.resource.data.status == 'new'
+        && request.resource.data.propertyId is string && request.resource.data.propertyId.size() > 0 && request.resource.data.propertyId.size() <= 200
+        && request.resource.data.propertyTitle is string && request.resource.data.propertyTitle.size() > 0 && request.resource.data.propertyTitle.size() <= 300
         && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 200
         && request.resource.data.email is string && request.resource.data.email.size() > 0 && request.resource.data.email.size() <= 200
-        && request.resource.data.message is string && request.resource.data.message.size() <= 5000;
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 50
+        && request.resource.data.message is string && request.resource.data.message.size() <= 5000
+        && request.resource.data.createdAt is timestamp;
     }
 
     match /settings/{settingId} {

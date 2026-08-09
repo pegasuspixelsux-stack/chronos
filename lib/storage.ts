@@ -39,3 +39,11 @@ export async function deleteImages(urls: string[]): Promise<void> {
     })
   );
 }
+
+const SITE_LOGO_PATH = "site/logo";
+
+export async function uploadSiteLogo(file: File): Promise<string> {
+  const storageRef = ref(getFirebaseStorage(), SITE_LOGO_PATH);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+}

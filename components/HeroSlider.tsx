@@ -42,7 +42,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
           }`}
           style={{
             backgroundImage: `linear-gradient(to top right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 80%), url(${
-              property.imageUrl || `https://picsum.photos/seed/chronos-slide-${property.id}/1920/1080`
+              property.imageUrls[0] || `https://picsum.photos/seed/chronos-slide-${property.id}/1920/1080`
             })`,
           }}
         >

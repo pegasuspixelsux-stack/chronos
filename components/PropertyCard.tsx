@@ -11,7 +11,7 @@ export default function PropertyCard({ property }: { property: Property }) {
       <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-bone)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={property.imageUrl || "https://picsum.photos/seed/chronos-property/800/800"}
+          src={property.imageUrls[0] || "https://picsum.photos/seed/chronos-property/800/800"}
           alt={property.title}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"

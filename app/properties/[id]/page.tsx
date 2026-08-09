@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import PropertyGallery from "@/components/PropertyGallery";
 import { formatPrice, getPropertyById } from "@/lib/properties";
 
 export const dynamic = "force-dynamic";
@@ -23,14 +24,7 @@ export default async function PropertyDetailPage({
       </Link>
 
       <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2">
-        <div className="aspect-[4/3] overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bone)]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={property.imageUrl || "https://picsum.photos/seed/chronos-property-detail/1200/900"}
-            alt={property.title}
-            className="h-full w-full object-cover"
-          />
-        </div>
+        <PropertyGallery property={property} />
 
         <div>
           <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">{property.propertyType}</p>

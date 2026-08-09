@@ -3,7 +3,7 @@
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { auth } from "@/lib/firebase";
+import { getFirebaseAuth } from "@/lib/firebase";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const [signOutError, setSignOutError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(getFirebaseAuth(), (currentUser) => {
       setUser(currentUser);
       setChecking(false);
       if (!currentUser) {
@@ -45,7 +45,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           <button
             onClick={() => {
               setSignOutError(null);
-              signOut(auth).catch(() => setSignOutError("Could not sign out. Try again."));
+              signOut(getFirebaseAuth()).catch(() => setSignOutError("Could not sign out. Try again."));
             }}
             className="rounded-md border border-[var(--color-border)] px-4 py-2 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
           >

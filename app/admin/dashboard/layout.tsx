@@ -9,6 +9,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [checking, setChecking] = useState(true);
+  const [signOutError, setSignOutError] = useState<string | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -40,12 +41,18 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Chronos Admin</p>
           <p className="mt-1 text-sm text-[var(--color-ink)]">{user.email}</p>
         </div>
-        <button
-          onClick={() => signOut(auth)}
-          className="rounded-md border border-[var(--color-border)] px-4 py-2 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
-        >
-          Sign out
-        </button>
+        <div className="flex flex-col items-end gap-1">
+          <button
+            onClick={() => {
+              setSignOutError(null);
+              signOut(auth).catch(() => setSignOutError("Could not sign out. Try again."));
+            }}
+            className="rounded-md border border-[var(--color-border)] px-4 py-2 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
+          >
+            Sign out
+          </button>
+          {signOutError && <p className="text-xs text-[var(--color-accent-red-text)]">{signOutError}</p>}
+        </div>
       </div>
       {children}
     </div>

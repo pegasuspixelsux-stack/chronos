@@ -12,6 +12,7 @@ import {
   updateDoc,
   where,
   type DocumentData,
+  type FirestoreError,
   type Unsubscribe,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -100,9 +101,14 @@ export async function deleteProperty(id: string): Promise<void> {
   await deleteDoc(doc(db, PROPERTIES_COLLECTION, id));
 }
 
-export function subscribeToProperties(callback: (properties: Property[]) => void): Unsubscribe {
+export function subscribeToProperties(
+  onData: (properties: Property[]) => void,
+  onError?: (error: FirestoreError) => void
+): Unsubscribe {
   const propertiesQuery = query(collection(db, PROPERTIES_COLLECTION), orderBy("createdAt", "desc"));
-  return onSnapshot(propertiesQuery, (snapshot) => {
-    callback(snapshot.docs.map((docSnap) => mapDocToProperty(docSnap.id, docSnap.data())));
-  });
+  return onSnapshot(
+    propertiesQuery,
+    (snapshot) => onData(snapshot.docs.map((docSnap) => mapDocToProperty(docSnap.id, docSnap.data()))),
+    onError
+  );
 }

@@ -55,4 +55,4 @@ Structural/stylistic observations — no copy, headlines, or body text reproduce
 
 ---
 
-**Note on relevance to Chronos:** this is a denser, teal-accented, corporate-brokerage aesthetic — the opposite pole from the warm-monochrome minimalist/editorial direction already chosen for Chronos (see the implementation plan). Treat this as a competitor reference, not a style to adopt wholesale, unless you want to reconsider the design direction.
+**Note on relevance to Chronos:** this teal-accented, corporate-brokerage aesthetic is the direction that was adopted for the Chronos build (see the implementation plan's Global Constraints) — not a rejected competitor reference. The color palette, card/button styling, and layout structure documented above describe what was actually built.

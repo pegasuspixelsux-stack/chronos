@@ -17,8 +17,7 @@ export default async function FeaturedProperties() {
 
       {loadError ? (
         <p className="mt-4 text-[var(--color-ink-secondary)]">
-          Listings are temporarily unavailable. Check the Firebase configuration in{" "}
-          <code className="rounded bg-[var(--color-bone)] px-1.5 py-0.5 font-mono text-[0.9em]">.env.local</code>.
+          Listings are temporarily unavailable. Please check back soon.
         </p>
       ) : properties.length === 0 ? (
         <p className="mt-4 text-[var(--color-ink-secondary)]">

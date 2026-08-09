@@ -41,8 +41,8 @@ export default function PropertyForm({
     setSubmitting(true);
     try {
       await onSubmit(values);
-    } catch {
-      setError("Could not save this property. Check your connection and try again.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Could not save this property. Check your connection and try again.");
     } finally {
       setSubmitting(false);
     }
@@ -56,7 +56,7 @@ export default function PropertyForm({
           required
           value={values.title}
           onChange={(event) => update("title", event.target.value)}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -66,7 +66,7 @@ export default function PropertyForm({
           rows={4}
           value={values.description}
           onChange={(event) => update("description", event.target.value)}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -78,7 +78,7 @@ export default function PropertyForm({
           min={0}
           value={values.price}
           onChange={(event) => update("price", Number(event.target.value))}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -87,7 +87,7 @@ export default function PropertyForm({
         <select
           value={values.propertyType}
           onChange={(event) => update("propertyType", event.target.value as PropertyType)}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         >
           {PROPERTY_TYPES.map((type) => (
             <option key={type} value={type}>
@@ -103,7 +103,7 @@ export default function PropertyForm({
           required
           value={values.location}
           onChange={(event) => update("location", event.target.value)}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -114,7 +114,7 @@ export default function PropertyForm({
           min={0}
           value={values.bedrooms}
           onChange={(event) => update("bedrooms", Number(event.target.value))}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -125,7 +125,7 @@ export default function PropertyForm({
           min={0}
           value={values.bathrooms}
           onChange={(event) => update("bathrooms", Number(event.target.value))}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -136,7 +136,7 @@ export default function PropertyForm({
           min={0}
           value={values.areaSqm}
           onChange={(event) => update("areaSqm", Number(event.target.value))}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 
@@ -146,7 +146,7 @@ export default function PropertyForm({
           value={values.imageUrl}
           onChange={(event) => update("imageUrl", event.target.value)}
           placeholder="https://…"
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
       </label>
 

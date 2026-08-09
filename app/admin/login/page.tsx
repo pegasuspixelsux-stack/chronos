@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+            className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none"
+            className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
           />
         </label>
 

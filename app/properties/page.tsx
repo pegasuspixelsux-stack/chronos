@@ -47,12 +47,12 @@ export default async function PropertiesPage({
           name="query"
           defaultValue={searchQuery ?? ""}
           placeholder="Search by keyword"
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
         <select
           name="propertyType"
           defaultValue={propertyType ?? ""}
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         >
           <option value="">Any type</option>
           {PROPERTY_TYPES.map((type) => (
@@ -66,7 +66,7 @@ export default async function PropertiesPage({
           name="location"
           defaultValue={location ?? ""}
           placeholder="Location"
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none"
+          className="rounded-md border border-[var(--color-border)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
         />
         <button
           type="submit"
@@ -86,8 +86,7 @@ export default async function PropertiesPage({
 
       {loadError ? (
         <p className="mt-12 text-[var(--color-ink-secondary)]">
-          Listings are temporarily unavailable. Check the Firebase configuration in{" "}
-          <code className="rounded bg-[var(--color-bone)] px-1.5 py-0.5 font-mono text-[0.9em]">.env.local</code>.
+          Listings are temporarily unavailable. Please check back soon.
         </p>
       ) : filtered.length === 0 ? (
         <p className="mt-12 text-[var(--color-ink-secondary)]">No properties match those filters yet.</p>

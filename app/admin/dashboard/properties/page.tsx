@@ -9,13 +9,21 @@ import type { Property, PropertyInput } from "@/lib/types";
 export default function PropertiesDashboardPage() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = subscribeToProperties((next) => {
-      setProperties(next);
-      setLoading(false);
-    });
+    const unsubscribe = subscribeToProperties(
+      (next) => {
+        setProperties(next);
+        setLoading(false);
+        setError(null);
+      },
+      () => {
+        setLoading(false);
+        setError("Could not load properties. Check your connection and try again.");
+      }
+    );
     return () => unsubscribe();
   }, []);
 
@@ -29,7 +37,11 @@ export default function PropertiesDashboardPage() {
 
   async function handleDelete(id: string) {
     if (!window.confirm("Delete this property? This cannot be undone.")) return;
-    await deleteProperty(id);
+    try {
+      await deleteProperty(id);
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Could not delete this property. Try again.");
+    }
   }
 
   return (
@@ -73,6 +85,8 @@ export default function PropertiesDashboardPage() {
       <div className="mt-8 overflow-x-auto">
         {loading ? (
           <p className="text-sm text-[var(--color-ink-secondary)]">Loading properties…</p>
+        ) : error ? (
+          <p className="text-sm text-[var(--color-accent-red-text)]">{error}</p>
         ) : properties.length === 0 ? (
           <p className="text-sm text-[var(--color-ink-secondary)]">No properties yet. Add your first listing.</p>
         ) : (

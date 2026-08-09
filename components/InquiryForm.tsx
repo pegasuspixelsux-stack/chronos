@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { createLead } from "@/lib/leads";
 
 export default function InquiryForm({
   propertyId,
@@ -24,6 +23,7 @@ export default function InquiryForm({
     setError(null);
     setSubmitting(true);
     try {
+      const { createLead } = await import("@/lib/leads");
       await createLead({
         propertyId,
         propertyTitle,

@@ -114,7 +114,7 @@ export default function UsersPage() {
                     {admin.addedBy || "—"}
                   </td>
                   <td className="py-3 pr-4 text-[var(--color-ink-secondary)]">
-                    {new Date(admin.addedAt).toLocaleDateString()}
+                    {admin.addedAt !== null ? new Date(admin.addedAt).toLocaleDateString() : "—"}
                   </td>
                   <td className="py-3 pr-4">
                     {currentUser?.uid === admin.uid ? (

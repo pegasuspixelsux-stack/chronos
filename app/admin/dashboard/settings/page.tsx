@@ -61,6 +61,10 @@ export default function SettingsPage() {
     return <p className="text-sm text-[var(--color-ink-secondary)]">Loading…</p>;
   }
 
+  if (error) {
+    return <p className="text-sm text-[var(--color-accent-red-text)]">{error}</p>;
+  }
+
   return (
     <div>
       <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Configuration Settings</h1>

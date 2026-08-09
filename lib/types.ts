@@ -55,5 +55,5 @@ export interface SiteSettings {
 export interface AdminEntry {
   uid: string;
   addedBy: string;
-  addedAt: number;
+  addedAt: number | null;
 }

@@ -3,6 +3,7 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  serverTimestamp,
   setDoc,
   Timestamp,
   type DocumentData,
@@ -15,7 +16,7 @@ import type { AdminEntry } from "@/lib/types";
 const ADMINS_COLLECTION = "admins";
 
 function mapDocToAdmin(uid: string, data: DocumentData): AdminEntry {
-  const addedAt = data.addedAt instanceof Timestamp ? data.addedAt.toMillis() : Date.now();
+  const addedAt = data.addedAt instanceof Timestamp ? data.addedAt.toMillis() : null;
   return { uid, addedBy: data.addedBy ?? "", addedAt };
 }
 
@@ -31,7 +32,7 @@ export function subscribeToAdmins(
     collection(db, ADMINS_COLLECTION),
     (snapshot) => {
       const admins = snapshot.docs.map((docSnap) => mapDocToAdmin(docSnap.id, docSnap.data()));
-      onData(admins.sort((a, b) => b.addedAt - a.addedAt));
+      onData(admins.sort((a, b) => (b.addedAt ?? 0) - (a.addedAt ?? 0)));
     },
     onError
   );
@@ -40,7 +41,7 @@ export function subscribeToAdmins(
 export async function addAdmin(uid: string, addedByUid: string): Promise<void> {
   await setDoc(doc(db, ADMINS_COLLECTION, uid), {
     addedBy: addedByUid,
-    addedAt: Timestamp.now(),
+    addedAt: serverTimestamp(),
   });
 }
 

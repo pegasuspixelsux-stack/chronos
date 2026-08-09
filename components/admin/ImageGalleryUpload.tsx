@@ -58,7 +58,8 @@ export default function ImageGalleryUpload({
     event.preventDefault();
   }
 
-  function handleDrop(index: number) {
+  function handleDrop(event: DragEvent<HTMLDivElement>, index: number) {
+    event.preventDefault();
     const fromIndex = dragIndexRef.current;
     dragIndexRef.current = null;
     if (fromIndex === null || fromIndex === index) return;
@@ -98,11 +99,11 @@ export default function ImageGalleryUpload({
               draggable
               onDragStart={() => handleDragStart(index)}
               onDragOver={handleDragOver}
-              onDrop={() => handleDrop(index)}
+              onDrop={(event) => handleDrop(event, index)}
               className="group relative aspect-square cursor-move overflow-hidden rounded-md border border-[var(--color-border)] bg-[var(--color-bone)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={url} alt="" className="h-full w-full object-cover" />
+              <img src={url} alt="" draggable={false} className="h-full w-full object-cover" />
               {index === 0 && (
                 <span className="absolute left-1 top-1 rounded bg-[var(--color-accent-teal)] px-1.5 py-0.5 text-[10px] font-semibold uppercase text-white">
                   Cover

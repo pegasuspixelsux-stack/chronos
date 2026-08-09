@@ -17,7 +17,8 @@ export default function SettingsPage() {
   const [settings, setSettings] = useState<SiteSettings>(EMPTY_SETTINGS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function SettingsPage() {
       })
       .catch(() => {
         if (cancelled) return;
-        setError("Could not load settings. Check your connection and try again.");
+        setLoadError("Could not load settings. Check your connection and try again.");
         setLoading(false);
       });
     return () => {
@@ -41,17 +42,18 @@ export default function SettingsPage() {
   function update<K extends keyof SiteSettings>(key: K, value: SiteSettings[K]) {
     setSettings((prev) => ({ ...prev, [key]: value }));
     setSaved(false);
+    setSaveError(null);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
+    setSaveError(null);
     setSaving(true);
     try {
       await updateSiteSettings(settings);
       setSaved(true);
     } catch {
-      setError("Could not save settings. Check your connection and try again.");
+      setSaveError("Could not save settings. Check your connection and try again.");
     } finally {
       setSaving(false);
     }
@@ -61,8 +63,8 @@ export default function SettingsPage() {
     return <p className="text-sm text-[var(--color-ink-secondary)]">Loading…</p>;
   }
 
-  if (error) {
-    return <p className="text-sm text-[var(--color-accent-red-text)]">{error}</p>;
+  if (loadError) {
+    return <p className="text-sm text-[var(--color-accent-red-text)]">{loadError}</p>;
   }
 
   return (
@@ -108,7 +110,7 @@ export default function SettingsPage() {
           />
         </label>
 
-        {error && <p className="text-sm text-[var(--color-accent-red-text)]">{error}</p>}
+        {saveError && <p className="text-sm text-[var(--color-accent-red-text)]">{saveError}</p>}
         {saved && <p className="text-sm text-[var(--color-accent-teal)]">Settings saved.</p>}
 
         <button

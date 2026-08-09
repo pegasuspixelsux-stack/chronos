@@ -51,6 +51,8 @@ A real estate listings platform built with Next.js and Firebase (client SDK only
 
    Without this step, the admin can log in at `/admin/login`, but every create/update/delete will be rejected by the security rules.
 
+   Once at least one admin exists, additional admins can be added directly from the dashboard's Users page (`/admin/dashboard/users`) instead of repeating this step manually.
+
 7. **Run the app**
 
    ```bash

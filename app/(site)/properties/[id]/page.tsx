@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import InquiryForm from "@/components/InquiryForm";
 import PropertyGallery from "@/components/PropertyGallery";
 import { formatPrice, getPropertyById } from "@/lib/properties";
 
@@ -51,12 +52,7 @@ export default async function PropertyDetailPage({
 
           <p className="mt-8 whitespace-pre-line text-[var(--color-ink-secondary)]">{property.description}</p>
 
-          <a
-            href={`mailto:inquiries@chronos.example?subject=${encodeURIComponent(`Inquiry: ${property.title}`)}`}
-            className="mt-10 inline-flex items-center justify-center rounded-md bg-[var(--color-accent-teal)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)]"
-          >
-            Inquire about this property
-          </a>
+          <InquiryForm propertyId={property.id} propertyTitle={property.title} />
         </div>
       </div>
     </div>

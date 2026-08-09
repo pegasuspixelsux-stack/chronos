@@ -15,6 +15,7 @@ A real estate listings platform built with Next.js and Firebase (client SDK only
    In the [Firebase console](https://console.firebase.google.com/), create a project and enable:
    - **Firestore** (Database)
    - **Authentication** → sign-in method → **Email/Password**
+   - **Storage** (for property images)
 
 3. **Configure environment variables**
 
@@ -29,16 +30,16 @@ A real estate listings platform built with Next.js and Firebase (client SDK only
    NEXT_PUBLIC_FIREBASE_APP_ID=
    ```
 
-4. **Deploy the Firestore security rules**
+4. **Deploy the security rules**
 
    ```bash
    npm install -g firebase-tools
    firebase login
    firebase init firestore   # select your project, keep the existing firestore.rules
-   firebase deploy --only firestore:rules
+   firebase deploy --only firestore:rules,storage
    ```
 
-   **The app has no real write protection until this rules deploy happens.** Until then, `firestore.rules` isn't enforced against your project at all.
+   **The app has no real write protection until this deploy happens** — for Firestore *and* Storage. Until then, `firestore.rules`/`storage.rules` aren't enforced against your project at all.
 
 5. **Create an admin user**
 

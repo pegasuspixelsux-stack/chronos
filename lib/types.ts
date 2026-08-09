@@ -14,6 +14,7 @@ export interface Property {
   areaSqm: number;
   imageUrl: string;
   featured: boolean;
+  inHeroSlider: boolean;
   createdAt: number;
 }
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import PropertyForm from "@/components/admin/PropertyForm";
-import { deleteProperty, formatPrice, subscribeToProperties, updateProperty } from "@/lib/properties";
+import { countSliderSlots, deleteProperty, formatPrice, subscribeToProperties, updateProperty } from "@/lib/properties";
 import type { Property, PropertyInput } from "@/lib/types";
 
 export default function PropertiesDashboardPage() {
@@ -28,6 +28,7 @@ export default function PropertiesDashboardPage() {
   }, []);
 
   const editingProperty = properties.find((property) => property.id === editingId) ?? null;
+  const sliderCount = countSliderSlots(properties, editingId ?? undefined);
 
   async function handleUpdate(values: PropertyInput) {
     if (!editingId) return;
@@ -73,10 +74,12 @@ export default function PropertiesDashboardPage() {
                 areaSqm: editingProperty.areaSqm,
                 imageUrl: editingProperty.imageUrl,
                 featured: editingProperty.featured,
+                inHeroSlider: editingProperty.inHeroSlider,
               }}
               submitLabel="Save changes"
               onSubmit={handleUpdate}
               onCancel={() => setEditingId(null)}
+              sliderCount={sliderCount}
             />
           </div>
         </div>
@@ -97,6 +100,7 @@ export default function PropertiesDashboardPage() {
                 <th className="py-3 pr-4 font-medium">Type</th>
                 <th className="py-3 pr-4 font-medium">Price</th>
                 <th className="py-3 pr-4 font-medium">Featured</th>
+                <th className="py-3 pr-4 font-medium">Slider</th>
                 <th className="py-3 pr-4 font-medium">Actions</th>
               </tr>
             </thead>
@@ -107,6 +111,7 @@ export default function PropertiesDashboardPage() {
                   <td className="py-3 pr-4">{property.propertyType}</td>
                   <td className="py-3 pr-4">{formatPrice(property.price)}</td>
                   <td className="py-3 pr-4">{property.featured ? "Yes" : "No"}</td>
+                  <td className="py-3 pr-4">{property.inHeroSlider ? "Yes" : "No"}</td>
                   <td className="py-3 pr-4">
                     <button
                       onClick={() => setEditingId(property.id)}

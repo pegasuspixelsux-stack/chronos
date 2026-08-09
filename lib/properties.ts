@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -19,6 +20,7 @@ import { db } from "@/lib/firebase";
 import type { Property, PropertyFilters, PropertyInput } from "@/lib/types";
 
 const PROPERTIES_COLLECTION = "properties";
+export const HERO_SLIDER_LIMIT = 5;
 
 export function mapDocToProperty(id: string, data: DocumentData): Property {
   const createdAt = data.createdAt instanceof Timestamp ? data.createdAt.toMillis() : Date.now();
@@ -34,6 +36,7 @@ export function mapDocToProperty(id: string, data: DocumentData): Property {
     areaSqm: data.areaSqm ?? 0,
     imageUrl: data.imageUrl ?? "",
     featured: data.featured ?? false,
+    inHeroSlider: data.inHeroSlider ?? false,
     createdAt,
   };
 }
@@ -61,6 +64,10 @@ export function matchesFilters(property: Property, filters: PropertyFilters): bo
   return true;
 }
 
+export function countSliderSlots(properties: Property[], excludeId?: string): number {
+  return properties.filter((property) => property.inHeroSlider && property.id !== excludeId).length;
+}
+
 export async function getAllProperties(): Promise<Property[]> {
   const snapshot = await getDocs(
     query(collection(db, PROPERTIES_COLLECTION), orderBy("createdAt", "desc"))
@@ -73,6 +80,22 @@ export async function getFeaturedProperties(): Promise<Property[]> {
   // sort client-side instead.
   const snapshot = await getDocs(
     query(collection(db, PROPERTIES_COLLECTION), where("featured", "==", true))
+  );
+  return snapshot.docs
+    .map((docSnap) => mapDocToProperty(docSnap.id, docSnap.data()))
+    .sort((a, b) => b.createdAt - a.createdAt);
+}
+
+export async function getHeroSliderProperties(): Promise<Property[]> {
+  // Filter + hard limit(5) at the query level (defense in depth beyond the
+  // admin form's own max-5 validation); no orderBy, to avoid requiring a
+  // Firestore composite index — sort client-side instead.
+  const snapshot = await getDocs(
+    query(
+      collection(db, PROPERTIES_COLLECTION),
+      where("inHeroSlider", "==", true),
+      limit(HERO_SLIDER_LIMIT)
+    )
   );
   return snapshot.docs
     .map((docSnap) => mapDocToProperty(docSnap.id, docSnap.data()))

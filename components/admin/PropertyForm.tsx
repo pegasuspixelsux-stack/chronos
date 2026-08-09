@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { HERO_SLIDER_LIMIT } from "@/lib/properties";
 import { PROPERTY_TYPES, type PropertyInput, type PropertyType } from "@/lib/types";
 
 const EMPTY_FORM: PropertyInput = {
@@ -14,6 +15,7 @@ const EMPTY_FORM: PropertyInput = {
   areaSqm: 0,
   imageUrl: "",
   featured: false,
+  inHeroSlider: false,
 };
 
 export default function PropertyForm({
@@ -21,11 +23,13 @@ export default function PropertyForm({
   submitLabel,
   onSubmit,
   onCancel,
+  sliderCount,
 }: {
   initialValues?: PropertyInput;
   submitLabel: string;
   onSubmit: (values: PropertyInput) => Promise<void>;
   onCancel?: () => void;
+  sliderCount: number;
 }) {
   const [values, setValues] = useState<PropertyInput>(initialValues ?? EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
@@ -35,6 +39,14 @@ export default function PropertyForm({
     setValues((prev) => ({ ...prev, [key]: value }));
   }
 
+  function handleSliderToggle(checked: boolean) {
+    if (checked && sliderCount >= HERO_SLIDER_LIMIT) {
+      window.alert("Maximum of 5 properties can be featured in the hero slider.");
+      return;
+    }
+    update("inHeroSlider", checked);
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
@@ -42,7 +54,9 @@ export default function PropertyForm({
     try {
       await onSubmit(values);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Could not save this property. Check your connection and try again.");
+      setError(
+        error instanceof Error ? error.message : "Could not save this property. Check your connection and try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -157,6 +171,15 @@ export default function PropertyForm({
           onChange={(event) => update("featured", event.target.checked)}
         />
         Feature on homepage
+      </label>
+
+      <label className="flex items-center gap-2 text-sm text-[var(--color-ink)] sm:col-span-2">
+        <input
+          type="checkbox"
+          checked={values.inHeroSlider}
+          onChange={(event) => handleSliderToggle(event.target.checked)}
+        />
+        Feature in Hero Slider ({sliderCount}/{HERO_SLIDER_LIMIT} used)
       </label>
 
       {error && <p className="text-sm text-[var(--color-accent-red-text)] sm:col-span-2">{error}</p>}

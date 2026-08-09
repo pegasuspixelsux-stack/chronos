@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Timestamp } from "firebase/firestore";
-import { formatPrice, mapDocToProperty, matchesFilters } from "@/lib/properties";
+import { countSliderSlots, formatPrice, mapDocToProperty, matchesFilters } from "@/lib/properties";
 import type { Property } from "@/lib/types";
 
 describe("mapDocToProperty", () => {
@@ -17,6 +17,7 @@ describe("mapDocToProperty", () => {
       areaSqm: 140,
       imageUrl: "https://example.com/house.jpg",
       featured: true,
+      inHeroSlider: true,
       createdAt,
     });
 
@@ -32,6 +33,7 @@ describe("mapDocToProperty", () => {
       areaSqm: 140,
       imageUrl: "https://example.com/house.jpg",
       featured: true,
+      inHeroSlider: true,
       createdAt: 1700000000000,
     });
   });
@@ -42,6 +44,7 @@ describe("mapDocToProperty", () => {
     expect(property.price).toBe(0);
     expect(property.propertyType).toBe("House");
     expect(property.featured).toBe(false);
+    expect(property.inHeroSlider).toBe(false);
   });
 });
 
@@ -64,6 +67,7 @@ describe("matchesFilters", () => {
     areaSqm: 140,
     imageUrl: "",
     featured: true,
+    inHeroSlider: false,
     createdAt: 0,
   };
 
@@ -89,5 +93,48 @@ describe("matchesFilters", () => {
   it("filters by free-text query across title, description, and location", () => {
     expect(matchesFilters(base, { query: "trailhead" })).toBe(true);
     expect(matchesFilters(base, { query: "swimming pool" })).toBe(false);
+  });
+});
+
+describe("countSliderSlots", () => {
+  function makeProperty(overrides: Partial<Property>): Property {
+    return {
+      id: "id",
+      title: "Property",
+      description: "",
+      price: 100000,
+      propertyType: "House",
+      location: "Somewhere",
+      bedrooms: 1,
+      bathrooms: 1,
+      areaSqm: 50,
+      imageUrl: "",
+      featured: false,
+      inHeroSlider: false,
+      createdAt: 0,
+      ...overrides,
+    };
+  }
+
+  it("counts properties currently in the hero slider", () => {
+    const properties = [
+      makeProperty({ id: "1", inHeroSlider: true }),
+      makeProperty({ id: "2", inHeroSlider: false }),
+      makeProperty({ id: "3", inHeroSlider: true }),
+    ];
+    expect(countSliderSlots(properties)).toBe(2);
+  });
+
+  it("excludes the property being edited from the count", () => {
+    const properties = [
+      makeProperty({ id: "1", inHeroSlider: true }),
+      makeProperty({ id: "2", inHeroSlider: true }),
+    ];
+    expect(countSliderSlots(properties, "1")).toBe(1);
+  });
+
+  it("returns 0 when no properties are in the slider", () => {
+    const properties = [makeProperty({ id: "1", inHeroSlider: false })];
+    expect(countSliderSlots(properties)).toBe(0);
   });
 });

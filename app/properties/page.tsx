@@ -13,7 +13,9 @@ export default async function PropertiesPage({
   const params = await searchParams;
   const searchQuery = typeof params.query === "string" ? params.query : undefined;
   const propertyType =
-    typeof params.propertyType === "string" ? (params.propertyType as PropertyType) : undefined;
+    typeof params.propertyType === "string" && PROPERTY_TYPES.includes(params.propertyType as PropertyType)
+      ? (params.propertyType as PropertyType)
+      : undefined;
   const location = typeof params.location === "string" ? params.location : undefined;
 
   let properties: Property[] = [];

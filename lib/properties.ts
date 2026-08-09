@@ -12,61 +12,16 @@ import {
   Timestamp,
   updateDoc,
   where,
-  type DocumentData,
   type FirestoreError,
   type Unsubscribe,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import type { Property, PropertyFilters, PropertyInput } from "@/lib/types";
+import { HERO_SLIDER_LIMIT, mapDocToProperty } from "@/lib/property-utils";
+import type { Property, PropertyInput } from "@/lib/types";
 
 const PROPERTIES_COLLECTION = "properties";
-export const HERO_SLIDER_LIMIT = 5;
 
-export function mapDocToProperty(id: string, data: DocumentData): Property {
-  const createdAt = data.createdAt instanceof Timestamp ? data.createdAt.toMillis() : Date.now();
-  return {
-    id,
-    title: data.title ?? "",
-    description: data.description ?? "",
-    price: data.price ?? 0,
-    propertyType: data.propertyType ?? "House",
-    location: data.location ?? "",
-    bedrooms: data.bedrooms ?? 0,
-    bathrooms: data.bathrooms ?? 0,
-    areaSqm: data.areaSqm ?? 0,
-    imageUrl: data.imageUrl ?? "",
-    featured: data.featured ?? false,
-    inHeroSlider: data.inHeroSlider ?? false,
-    createdAt,
-  };
-}
-
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(price);
-}
-
-export function matchesFilters(property: Property, filters: PropertyFilters): boolean {
-  if (filters.propertyType && property.propertyType !== filters.propertyType) return false;
-  if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) {
-    return false;
-  }
-  if (filters.minPrice !== undefined && property.price < filters.minPrice) return false;
-  if (filters.maxPrice !== undefined && property.price > filters.maxPrice) return false;
-  if (filters.query) {
-    const needle = filters.query.toLowerCase();
-    const haystack = `${property.title} ${property.description} ${property.location}`.toLowerCase();
-    if (!haystack.includes(needle)) return false;
-  }
-  return true;
-}
-
-export function countSliderSlots(properties: Property[], excludeId?: string): number {
-  return properties.filter((property) => property.inHeroSlider && property.id !== excludeId).length;
-}
+export { mapDocToProperty, formatPrice, matchesFilters, countSliderSlots, HERO_SLIDER_LIMIT } from "@/lib/property-utils";
 
 export async function getAllProperties(): Promise<Property[]> {
   const snapshot = await getDocs(
@@ -90,6 +45,10 @@ export async function getHeroSliderProperties(): Promise<Property[]> {
   // Filter + hard limit(5) at the query level (defense in depth beyond the
   // admin form's own max-5 validation); no orderBy, to avoid requiring a
   // Firestore composite index — sort client-side instead.
+  // Note: limit() here is a hard cap, not a "top 5 newest" guarantee — if
+  // more than 5 docs somehow have inHeroSlider: true, Firestore returns an
+  // arbitrary 5 and the client-side sort below only reorders that arbitrary
+  // set, not the true 5 newest.
   const snapshot = await getDocs(
     query(
       collection(db, PROPERTIES_COLLECTION),

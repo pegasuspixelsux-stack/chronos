@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { HERO_SLIDER_LIMIT } from "@/lib/properties";
+import { HERO_SLIDER_LIMIT } from "@/lib/property-utils";
 import { PROPERTY_TYPES, type PropertyInput, type PropertyType } from "@/lib/types";
 
 const EMPTY_FORM: PropertyInput = {

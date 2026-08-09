@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import PropertyForm from "@/components/admin/PropertyForm";
-import { countSliderSlots, deleteProperty, formatPrice, subscribeToProperties, updateProperty } from "@/lib/properties";
+import { deleteProperty, subscribeToProperties, updateProperty } from "@/lib/properties";
+import { countSliderSlots, formatPrice } from "@/lib/property-utils";
 import type { Property, PropertyInput } from "@/lib/types";
 
 export default function PropertiesDashboardPage() {

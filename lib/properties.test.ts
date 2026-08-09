@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Timestamp } from "firebase/firestore";
-import { countSliderSlots, formatPrice, mapDocToProperty, matchesFilters } from "@/lib/properties";
+import { countSliderSlots, formatPrice, mapDocToProperty, matchesFilters } from "@/lib/property-utils";
 import type { Property } from "@/lib/types";
 
 describe("mapDocToProperty", () => {

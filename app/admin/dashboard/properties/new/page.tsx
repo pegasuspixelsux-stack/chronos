@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import PropertyForm from "@/components/admin/PropertyForm";
 import { createProperty, getAllProperties } from "@/lib/properties";
+import { countSliderSlots } from "@/lib/property-utils";
 import type { PropertyInput } from "@/lib/types";
 
 export default function NewPropertyPage() {
@@ -16,7 +17,7 @@ export default function NewPropertyPage() {
     getAllProperties()
       .then((properties) => {
         if (cancelled) return;
-        setSliderCount(properties.filter((property) => property.inHeroSlider).length);
+        setSliderCount(countSliderSlots(properties));
         setLoaded(true);
       })
       .catch(() => {

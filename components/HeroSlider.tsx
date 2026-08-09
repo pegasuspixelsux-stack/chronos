@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { formatPrice } from "@/lib/properties";
+import { formatPrice } from "@/lib/property-utils";
 import type { Property } from "@/lib/types";
 
 const AUTO_ROTATE_MS = 5000;
@@ -35,6 +35,8 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
       {properties.map((property, index) => (
         <div
           key={property.id}
+          aria-hidden={index !== currentIndex}
+          inert={index !== currentIndex ? true : undefined}
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out ${
             index === currentIndex ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
@@ -92,6 +94,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
                 type="button"
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
+                aria-current={index === currentIndex}
                 className={`h-2.5 w-2.5 rounded-full transition-colors ${
                   index === currentIndex ? "bg-white" : "bg-white/40"
                 }`}

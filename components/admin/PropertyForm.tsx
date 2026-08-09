@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import ImageGalleryUpload from "@/components/admin/ImageGalleryUpload";
 import { HERO_SLIDER_LIMIT } from "@/lib/property-utils";
 import { PROPERTY_TYPES, type PropertyInput, type PropertyType } from "@/lib/types";
 
@@ -13,7 +14,7 @@ const EMPTY_FORM: PropertyInput = {
   bedrooms: 0,
   bathrooms: 0,
   areaSqm: 0,
-  imageUrl: "",
+  imageUrls: [],
   featured: false,
   inHeroSlider: false,
 };
@@ -154,15 +155,7 @@ export default function PropertyForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)] sm:col-span-2">
-        Image URL
-        <input
-          value={values.imageUrl}
-          onChange={(event) => update("imageUrl", event.target.value)}
-          placeholder="https://…"
-          className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
-        />
-      </label>
+      <ImageGalleryUpload value={values.imageUrls} onChange={(urls) => update("imageUrls", urls)} />
 
       <label className="flex items-center gap-2 text-sm text-[var(--color-ink)] sm:col-span-2">
         <input

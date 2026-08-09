@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PropertyForm from "@/components/admin/PropertyForm";
 import { deleteProperty, subscribeToProperties, updateProperty } from "@/lib/properties";
 import { countSliderSlots, formatPrice } from "@/lib/property-utils";
+import { deleteImages } from "@/lib/storage";
 import type { Property, PropertyInput } from "@/lib/types";
 
 export default function PropertiesDashboardPage() {
@@ -32,17 +33,30 @@ export default function PropertiesDashboardPage() {
   const sliderCount = countSliderSlots(properties, editingId ?? undefined);
 
   async function handleUpdate(values: PropertyInput) {
-    if (!editingId) return;
+    if (!editingId || !editingProperty) return;
+    const removedUrls = editingProperty.imageUrls.filter((url) => !values.imageUrls.includes(url));
     await updateProperty(editingId, values);
     setEditingId(null);
+    if (removedUrls.length > 0) {
+      deleteImages(removedUrls).catch(() => {
+        // Best-effort cleanup; the Firestore update already succeeded.
+      });
+    }
   }
 
   async function handleDelete(id: string) {
     if (!window.confirm("Delete this property? This cannot be undone.")) return;
+    const property = properties.find((p) => p.id === id);
     try {
       await deleteProperty(id);
     } catch (err) {
       window.alert(err instanceof Error ? err.message : "Could not delete this property. Try again.");
+      return;
+    }
+    if (property && property.imageUrls.length > 0) {
+      deleteImages(property.imageUrls).catch(() => {
+        // Best-effort cleanup; the Firestore delete already succeeded.
+      });
     }
   }
 
@@ -73,7 +87,7 @@ export default function PropertiesDashboardPage() {
                 bedrooms: editingProperty.bedrooms,
                 bathrooms: editingProperty.bathrooms,
                 areaSqm: editingProperty.areaSqm,
-                imageUrl: editingProperty.imageUrl,
+                imageUrls: editingProperty.imageUrls,
                 featured: editingProperty.featured,
                 inHeroSlider: editingProperty.inHeroSlider,
               }}

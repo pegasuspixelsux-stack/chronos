@@ -1,15 +1,15 @@
 "use client";
 
-import { onAuthStateChanged, signOut, type User } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Sidebar from "@/components/admin/Sidebar";
 import { getFirebaseAuth } from "@/lib/firebase";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [checking, setChecking] = useState(true);
-  const [signOutError, setSignOutError] = useState<string | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getFirebaseAuth(), (currentUser) => {
@@ -35,26 +35,9 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="mb-8 flex items-center justify-between border-b border-[var(--color-border)] pb-6">
-        <div>
-          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Chronos Admin</p>
-          <p className="mt-1 text-sm text-[var(--color-ink)]">{user.email}</p>
-        </div>
-        <div className="flex flex-col items-end gap-1">
-          <button
-            onClick={() => {
-              setSignOutError(null);
-              signOut(getFirebaseAuth()).catch(() => setSignOutError("Could not sign out. Try again."));
-            }}
-            className="rounded-md border border-[var(--color-border)] px-4 py-2 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
-          >
-            Sign out
-          </button>
-          {signOutError && <p className="text-xs text-[var(--color-accent-red-text)]">{signOutError}</p>}
-        </div>
-      </div>
-      {children}
+    <div className="flex min-h-screen">
+      <Sidebar userEmail={user.email ?? ""} />
+      <main className="flex-1 overflow-y-auto px-8 py-8">{children}</main>
     </div>
   );
 }

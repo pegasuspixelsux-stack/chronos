@@ -7,7 +7,22 @@ service cloud.firestore {
     }
 
     match /admins/{adminId} {
-      allow read, write: if false; // console/CLI only, never client-writable
+      allow read, write: if isAdmin();
+    }
+
+    match /leads/{leadId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if request.resource.data.keys().hasAll(
+          ['propertyId', 'propertyTitle', 'name', 'email', 'message', 'status', 'createdAt']
+        )
+        && request.resource.data.status == 'new'
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 200
+        && request.resource.data.email is string && request.resource.data.email.size() > 0 && request.resource.data.email.size() <= 200
+        && request.resource.data.message is string && request.resource.data.message.size() <= 5000;
+    }
+
+    match /settings/{settingId} {
+      allow read, write: if isAdmin();
     }
 
     function isAdmin() {

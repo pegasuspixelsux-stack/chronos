@@ -44,7 +44,7 @@ export default function Navbar() {
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav-menu"
           aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-          className="flex h-9 w-9 items-center justify-center text-white sm:hidden"
+          className="flex h-9 w-9 items-center justify-center text-black sm:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

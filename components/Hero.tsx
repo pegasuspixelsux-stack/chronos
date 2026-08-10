@@ -3,7 +3,7 @@ const HERO_IMAGE_URL = "https://picsum.photos/seed/chronos-hero/1920/1080";
 export default function Hero() {
   return (
     <section
-      className="relative h-[85vh] min-h-[480px] w-full bg-cover bg-center md:h-[90vh]"
+      className="relative h-[85vh] min-h-[480px] w-full bg-cover bg-center"
       style={{
         backgroundImage: `linear-gradient(to top right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 80%), url(${HERO_IMAGE_URL})`,
       }}

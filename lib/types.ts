@@ -139,3 +139,25 @@ export interface QualifiedLead {
 }
 
 export type QualifiedLeadInput = Omit<QualifiedLead, "id" | "createdAt">;
+
+export interface Salesperson {
+  id: string;
+  name: string;
+  active: boolean;
+  createdAt: number;
+}
+
+export type SalespersonInput = Omit<Salesperson, "id" | "createdAt">;
+
+export interface AdvisorRequest {
+  id: string;
+  propertyId: string;
+  propertyTitle: string;
+  name: string;
+  whatsapp: string;
+  salespersonName: string;
+  status: LeadStatus;
+  createdAt: number;
+}
+
+export type AdvisorRequestInput = Omit<AdvisorRequest, "id" | "createdAt">;

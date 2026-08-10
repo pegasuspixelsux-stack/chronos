@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import AdvisorRequestModal from "@/components/AdvisorRequestModal";
 import { formatPrice } from "@/lib/property-utils";
 import type { Property } from "@/lib/types";
 
@@ -9,6 +9,7 @@ const AUTO_ROTATE_MS = 5000;
 
 export default function HeroSlider({ properties }: { properties: Property[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [requestModalProperty, setRequestModalProperty] = useState<Property | null>(null);
 
   useEffect(() => {
     if (properties.length <= 1) return;
@@ -46,12 +47,13 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
             <p className="mt-1 text-sm text-gray-300">
               {property.bedrooms} dorm. &middot; {property.bathrooms} baños &middot; {property.areaSqm} m²
             </p>
-            <Link
-              href={`/properties/${property.id}`}
+            <button
+              type="button"
+              onClick={() => setRequestModalProperty(property)}
               className="mt-4 inline-flex items-center justify-center rounded-md bg-[var(--color-accent-teal)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)]"
             >
               Consulte un asesor
-            </Link>
+            </button>
           </div>
         </div>
       ))}
@@ -72,6 +74,13 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
           ))}
         </div>
       )}
+
+      <AdvisorRequestModal
+        isOpen={requestModalProperty !== null}
+        onClose={() => setRequestModalProperty(null)}
+        propertyId={requestModalProperty?.id ?? ""}
+        propertyTitle={requestModalProperty?.title ?? ""}
+      />
     </section>
   );
 }

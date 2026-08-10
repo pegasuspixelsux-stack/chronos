@@ -9,10 +9,12 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  MessageSquare,
   Settings,
   Sparkles,
   UserCheck,
   Users,
+  UsersRound,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -23,6 +25,8 @@ const NAV_ITEMS = [
   { href: "/admin/dashboard/properties", label: "Propiedades", icon: Building2 },
   { href: "/admin/dashboard/leads", label: "Leads", icon: Users },
   { href: "/admin/dashboard/curated-leads", label: "Leads Curados", icon: Sparkles },
+  { href: "/admin/dashboard/advisor-requests", label: "Solicitudes de Asesor", icon: MessageSquare },
+  { href: "/admin/dashboard/salespeople", label: "Asesores", icon: UsersRound },
   { href: "/admin/dashboard/users", label: "Usuarios", icon: UserCheck },
   { href: "/admin/dashboard/settings", label: "Configuración", icon: Settings },
 ];

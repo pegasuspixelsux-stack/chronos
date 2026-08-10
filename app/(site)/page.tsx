@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import HeroSlider from "@/components/HeroSlider";
+import TrustSection from "@/components/TrustSection";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import AboutUs from "@/components/AboutUs";
 import { getHeroSliderProperties } from "@/lib/properties";
@@ -18,6 +19,7 @@ export default async function Home() {
   return (
     <>
       {sliderProperties.length > 0 ? <HeroSlider properties={sliderProperties} /> : <Hero />}
+      <TrustSection />
       <FeaturedProperties />
       <AboutUs />
     </>

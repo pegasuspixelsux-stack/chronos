@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -7,8 +10,15 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bone)]/50 backdrop-blur-sm">
+    <header
+      className={`z-50 border-b border-[var(--color-border)] bg-[var(--color-bone)]/50 backdrop-blur-sm ${
+        isHome ? "fixed top-0 right-0 left-0" : "sticky top-0"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
           Chronos

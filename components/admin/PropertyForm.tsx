@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import ImageGalleryUpload from "@/components/admin/ImageGalleryUpload";
 import { HERO_SLIDER_LIMIT } from "@/lib/property-utils";
-import { PROPERTY_TYPES, type PropertyInput, type PropertyType } from "@/lib/types";
+import { PROPERTY_TYPE_LABELS, PROPERTY_TYPES, type PropertyInput, type PropertyType } from "@/lib/types";
 
 const EMPTY_FORM: PropertyInput = {
   title: "",
@@ -42,7 +42,7 @@ export default function PropertyForm({
 
   function handleSliderToggle(checked: boolean) {
     if (checked && sliderCount >= HERO_SLIDER_LIMIT) {
-      window.alert("Maximum of 5 properties can be featured in the hero slider.");
+      window.alert("Como máximo se pueden destacar 5 propiedades en el carrusel principal.");
       return;
     }
     update("inHeroSlider", checked);
@@ -56,7 +56,7 @@ export default function PropertyForm({
       await onSubmit(values);
     } catch (error) {
       setError(
-        error instanceof Error ? error.message : "Could not save this property. Check your connection and try again."
+        error instanceof Error ? error.message : "No se pudo guardar la propiedad. Verificá tu conexión e intentá de nuevo."
       );
     } finally {
       setSubmitting(false);
@@ -66,7 +66,7 @@ export default function PropertyForm({
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)] sm:col-span-2">
-        Title
+        Título
         <input
           required
           value={values.title}
@@ -76,7 +76,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)] sm:col-span-2">
-        Description
+        Descripción
         <textarea
           rows={4}
           value={values.description}
@@ -86,7 +86,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Price (USD)
+        Precio (USD)
         <input
           type="number"
           required
@@ -98,7 +98,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Property type
+        Tipo de propiedad
         <select
           value={values.propertyType}
           onChange={(event) => update("propertyType", event.target.value as PropertyType)}
@@ -106,14 +106,14 @@ export default function PropertyForm({
         >
           {PROPERTY_TYPES.map((type) => (
             <option key={type} value={type}>
-              {type}
+              {PROPERTY_TYPE_LABELS[type]}
             </option>
           ))}
         </select>
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)] sm:col-span-2">
-        Location
+        Ubicación
         <input
           required
           value={values.location}
@@ -123,7 +123,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Bedrooms
+        Dormitorios
         <input
           type="number"
           min={0}
@@ -134,7 +134,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Bathrooms
+        Baños
         <input
           type="number"
           min={0}
@@ -145,7 +145,7 @@ export default function PropertyForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Area (m²)
+        Superficie (m²)
         <input
           type="number"
           min={0}
@@ -163,7 +163,7 @@ export default function PropertyForm({
           checked={values.featured}
           onChange={(event) => update("featured", event.target.checked)}
         />
-        Feature on homepage
+        Destacar en la página principal
       </label>
 
       <label className="flex items-center gap-2 text-sm text-[var(--color-ink)] sm:col-span-2">
@@ -172,7 +172,7 @@ export default function PropertyForm({
           checked={values.inHeroSlider}
           onChange={(event) => handleSliderToggle(event.target.checked)}
         />
-        Feature in Hero Slider ({sliderCount}/{HERO_SLIDER_LIMIT} used)
+        Destacar en el carrusel principal ({sliderCount}/{HERO_SLIDER_LIMIT} usados)
       </label>
 
       {error && <p className="text-sm text-[var(--color-accent-red-text)] sm:col-span-2">{error}</p>}
@@ -183,7 +183,7 @@ export default function PropertyForm({
           disabled={submitting}
           className="rounded-md bg-[var(--color-accent-teal)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)] disabled:opacity-60"
         >
-          {submitting ? "Saving…" : submitLabel}
+          {submitting ? "Guardando…" : submitLabel}
         </button>
         {onCancel && (
           <button
@@ -191,7 +191,7 @@ export default function PropertyForm({
             onClick={onCancel}
             className="rounded-md border border-[var(--color-border)] px-6 py-2 text-sm text-[var(--color-ink)]"
           >
-            Cancel
+            Cancelar
           </button>
         )}
       </div>

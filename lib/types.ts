@@ -2,6 +2,12 @@ export type PropertyType = "House" | "Apartment" | "Plot";
 
 export const PROPERTY_TYPES: PropertyType[] = ["House", "Apartment", "Plot"];
 
+export const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
+  House: "Casa",
+  Apartment: "Apartamento",
+  Plot: "Terreno",
+};
+
 export interface Property {
   id: string;
   title: string;

@@ -17,12 +17,12 @@ import { useState } from "react";
 import { getFirebaseAuth } from "@/lib/firebase";
 
 const NAV_ITEMS = [
-  { href: "/admin/dashboard", label: "Control Panel", icon: LayoutDashboard },
-  { href: "/admin/dashboard/properties", label: "Properties", icon: Building2 },
+  { href: "/admin/dashboard", label: "Panel de Control", icon: LayoutDashboard },
+  { href: "/admin/dashboard/properties", label: "Propiedades", icon: Building2 },
   { href: "/admin/dashboard/leads", label: "Leads", icon: Users },
-  { href: "/admin/dashboard/curated-leads", label: "Curated Leads", icon: Sparkles },
-  { href: "/admin/dashboard/users", label: "Users", icon: UserCheck },
-  { href: "/admin/dashboard/settings", label: "Configuration Settings", icon: Settings },
+  { href: "/admin/dashboard/curated-leads", label: "Leads Curados", icon: Sparkles },
+  { href: "/admin/dashboard/users", label: "Usuarios", icon: UserCheck },
+  { href: "/admin/dashboard/settings", label: "Configuración", icon: Settings },
 ];
 
 export default function Sidebar({ userEmail }: { userEmail: string }) {
@@ -74,12 +74,12 @@ export default function Sidebar({ userEmail }: { userEmail: string }) {
         <button
           onClick={() => {
             setSignOutError(null);
-            signOut(getFirebaseAuth()).catch(() => setSignOutError("Could not sign out. Try again."));
+            signOut(getFirebaseAuth()).catch(() => setSignOutError("No se pudo cerrar sesión. Intentá de nuevo."));
           }}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--color-accent-red-text)] transition-colors hover:bg-[var(--color-accent-red-bg)]"
         >
           <LogOut className="h-4 w-4" />
-          Sign out
+          Cerrar sesión
         </button>
         {signOutError && <p className="px-3 text-xs text-[var(--color-accent-red-text)]">{signOutError}</p>}
       </div>

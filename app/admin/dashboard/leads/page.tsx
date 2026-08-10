@@ -6,9 +6,9 @@ import type { Lead, LeadStatus } from "@/lib/types";
 
 const STATUS_OPTIONS: LeadStatus[] = ["new", "contacted", "closed"];
 const STATUS_LABELS: Record<LeadStatus, string> = {
-  new: "New",
-  contacted: "Contacted",
-  closed: "Closed",
+  new: "Nuevo",
+  contacted: "Contactado",
+  closed: "Cerrado",
 };
 
 export default function LeadsPage() {
@@ -25,7 +25,7 @@ export default function LeadsPage() {
       },
       () => {
         setLoading(false);
-        setError("Could not load leads. Check your connection and try again.");
+        setError("No se pudieron cargar los leads. Verificá tu conexión e intentá de nuevo.");
       }
     );
     return () => unsubscribe();
@@ -35,7 +35,7 @@ export default function LeadsPage() {
     try {
       await updateLeadStatus(id, status);
     } catch {
-      window.alert("Could not update lead status. Try again.");
+      window.alert("No se pudo actualizar el estado del lead. Intentá de nuevo.");
     }
   }
 
@@ -45,20 +45,20 @@ export default function LeadsPage() {
 
       <div className="mt-8 overflow-x-auto">
         {loading ? (
-          <p className="text-sm text-[var(--color-ink-secondary)]">Loading leads…</p>
+          <p className="text-sm text-[var(--color-ink-secondary)]">Cargando leads…</p>
         ) : error ? (
           <p className="text-sm text-[var(--color-accent-red-text)]">{error}</p>
         ) : leads.length === 0 ? (
-          <p className="text-sm text-[var(--color-ink-secondary)]">No leads yet.</p>
+          <p className="text-sm text-[var(--color-ink-secondary)]">Todavía no hay leads.</p>
         ) : (
           <table className="w-full min-w-[720px] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-[var(--color-border)] text-[var(--color-ink-secondary)]">
-                <th className="py-3 pr-4 font-medium">Property</th>
-                <th className="py-3 pr-4 font-medium">Contact</th>
-                <th className="py-3 pr-4 font-medium">Message</th>
-                <th className="py-3 pr-4 font-medium">Submitted</th>
-                <th className="py-3 pr-4 font-medium">Status</th>
+                <th className="py-3 pr-4 font-medium">Propiedad</th>
+                <th className="py-3 pr-4 font-medium">Contacto</th>
+                <th className="py-3 pr-4 font-medium">Mensaje</th>
+                <th className="py-3 pr-4 font-medium">Fecha</th>
+                <th className="py-3 pr-4 font-medium">Estado</th>
               </tr>
             </thead>
             <tbody>

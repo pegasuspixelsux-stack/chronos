@@ -32,7 +32,7 @@ export default function ControlPanelPage() {
       })
       .catch(() => {
         if (cancelled) return;
-        setError("Could not load dashboard data. Check your connection and try again.");
+        setError("No se pudieron cargar los datos del panel. Verificá tu conexión e intentá de nuevo.");
         setLoading(false);
       });
     return () => {
@@ -41,7 +41,7 @@ export default function ControlPanelPage() {
   }, []);
 
   if (loading) {
-    return <p className="text-sm text-[var(--color-ink-secondary)]">Loading…</p>;
+    return <p className="text-sm text-[var(--color-ink-secondary)]">Cargando…</p>;
   }
 
   if (error) {
@@ -55,12 +55,12 @@ export default function ControlPanelPage() {
   const activity: Activity[] = [
     ...leads.map((lead) => ({
       id: `lead-${lead.id}`,
-      description: `New lead: ${lead.name} inquired about ${lead.propertyTitle}`,
+      description: `Nuevo lead: ${lead.name} consultó por ${lead.propertyTitle}`,
       timestamp: lead.createdAt,
     })),
     ...properties.map((property) => ({
       id: `property-${property.id}`,
-      description: `Property added: ${property.title}`,
+      description: `Propiedad agregada: ${property.title}`,
       timestamp: property.createdAt,
     })),
   ]
@@ -69,32 +69,32 @@ export default function ControlPanelPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Control Panel</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Panel de Control</h1>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Active Listings</p>
+          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Propiedades Activas</p>
           <p className="mt-2 text-3xl font-bold text-[var(--color-ink)]">{properties.length}</p>
         </div>
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Featured Listings</p>
+          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Propiedades Destacadas</p>
           <p className="mt-2 text-3xl font-bold text-[var(--color-ink)]">{featuredCount}</p>
         </div>
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Total Leads</p>
+          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Leads Totales</p>
           <p className="mt-2 text-3xl font-bold text-[var(--color-ink)]">{leads.length}</p>
-          <p className="mt-1 text-xs text-[var(--color-ink-secondary)]">{newLeadsThisWeek} new this week</p>
+          <p className="mt-1 text-xs text-[var(--color-ink-secondary)]">{newLeadsThisWeek} nuevos esta semana</p>
         </div>
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Response Rate</p>
+          <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">Tasa de Respuesta</p>
           <p className="mt-2 text-3xl font-bold text-[var(--color-ink)]">{responseRate}%</p>
         </div>
       </div>
 
       <div className="mt-8">
-        <h2 className="text-lg font-bold tracking-tight text-[var(--color-ink)]">Recent activity</h2>
+        <h2 className="text-lg font-bold tracking-tight text-[var(--color-ink)]">Actividad reciente</h2>
         {activity.length === 0 ? (
-          <p className="mt-3 text-sm text-[var(--color-ink-secondary)]">No activity yet.</p>
+          <p className="mt-3 text-sm text-[var(--color-ink-secondary)]">Todavía no hay actividad.</p>
         ) : (
           <ul className="mt-3 divide-y divide-[var(--color-border)] rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
             {activity.map((item) => (

@@ -36,12 +36,12 @@ export default function NewPropertyPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Add a property</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Agregar propiedad</h1>
       <div className="mt-6">
         {loaded ? (
-          <PropertyForm submitLabel="Create property" onSubmit={handleSubmit} sliderCount={sliderCount} />
+          <PropertyForm submitLabel="Crear propiedad" onSubmit={handleSubmit} sliderCount={sliderCount} />
         ) : (
-          <p className="text-sm text-[var(--color-ink-secondary)]">Loading…</p>
+          <p className="text-sm text-[var(--color-ink-secondary)]">Cargando…</p>
         )}
       </div>
     </div>

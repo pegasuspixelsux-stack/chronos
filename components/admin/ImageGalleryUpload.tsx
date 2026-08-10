@@ -22,14 +22,14 @@ export default function ImageGalleryUpload({
     setError(null);
 
     if (!canAddImages(value, files.length)) {
-      setError(`You can add at most ${MAX_IMAGES_PER_PROPERTY} images per property.`);
+      setError(`Podés agregar como máximo ${MAX_IMAGES_PER_PROPERTY} imágenes por propiedad.`);
       if (inputRef.current) inputRef.current.value = "";
       return;
     }
 
     const invalid = files.find((file) => !isAllowedImageFile(file));
     if (invalid) {
-      setError(`"${invalid.name}" isn't a supported image (JPEG/PNG/WebP, up to 5MB).`);
+      setError(`"${invalid.name}" no es una imagen compatible (JPEG/PNG/WebP, hasta 5MB).`);
       if (inputRef.current) inputRef.current.value = "";
       return;
     }
@@ -43,8 +43,8 @@ export default function ImageGalleryUpload({
       const code = err && typeof err === "object" && "code" in err ? (err as { code: string }).code : undefined;
       setError(
         code === "storage/unauthorized"
-          ? "You may not be authorized to upload images. Check that your account is in the admins allowlist."
-          : "Could not upload one or more images. Check your connection and try again."
+          ? "Es posible que tu cuenta no esté autorizada para subir imágenes. Verificá que esté en la lista de administradores."
+          : "No se pudieron subir una o más imágenes. Verificá tu conexión e intentá de nuevo."
       );
     } finally {
       setUploadingCount(0);
@@ -78,7 +78,7 @@ export default function ImageGalleryUpload({
   return (
     <div className="sm:col-span-2">
       <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-        Images ({value.length}/{MAX_IMAGES_PER_PROPERTY})
+        Imágenes ({value.length}/{MAX_IMAGES_PER_PROPERTY})
         <input
           ref={inputRef}
           type="file"
@@ -92,7 +92,7 @@ export default function ImageGalleryUpload({
 
       {uploadingCount > 0 && (
         <p className="mt-2 text-sm text-[var(--color-ink-secondary)]">
-          Uploading {uploadingCount} image{uploadingCount > 1 ? "s" : ""}…
+          Subiendo {uploadingCount} imagen{uploadingCount > 1 ? "es" : ""}…
         </p>
       )}
       {error && <p className="mt-2 text-sm text-[var(--color-accent-red-text)]">{error}</p>}
@@ -112,13 +112,13 @@ export default function ImageGalleryUpload({
               <img src={url} alt="" draggable={false} className="h-full w-full object-cover" />
               {index === 0 && (
                 <span className="absolute left-1 top-1 rounded bg-[var(--color-accent-teal)] px-1.5 py-0.5 text-[10px] font-semibold uppercase text-white">
-                  Cover
+                  Portada
                 </span>
               )}
               <button
                 type="button"
                 onClick={() => handleRemove(index)}
-                aria-label="Remove image"
+                aria-label="Quitar imagen"
                 className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/60 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
               >
                 ×

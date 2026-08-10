@@ -25,7 +25,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   if (checking) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center text-sm text-[var(--color-ink-secondary)]">
-        Checking session…
+        Verificando sesión…
       </div>
     );
   }

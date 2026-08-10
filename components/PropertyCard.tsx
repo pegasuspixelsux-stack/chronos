@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { formatPrice } from "@/lib/properties";
-import type { Property, PropertyType } from "@/lib/types";
-
-const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
-  House: "Casa",
-  Apartment: "Apartamento",
-  Plot: "Terreno",
-};
+import { PROPERTY_TYPE_LABELS, type Property } from "@/lib/types";
 
 export default function PropertyCard({ property }: { property: Property }) {
   return (

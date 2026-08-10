@@ -31,7 +31,7 @@ export default function SettingsPage() {
       })
       .catch(() => {
         if (cancelled) return;
-        setLoadError("Could not load settings. Check your connection and try again.");
+        setLoadError("No se pudo cargar la configuración. Verificá tu conexión e intentá de nuevo.");
         setLoading(false);
       });
     return () => {
@@ -53,14 +53,14 @@ export default function SettingsPage() {
       await updateSiteSettings(settings);
       setSaved(true);
     } catch {
-      setSaveError("Could not save settings. Check your connection and try again.");
+      setSaveError("No se pudo guardar la configuración. Verificá tu conexión e intentá de nuevo.");
     } finally {
       setSaving(false);
     }
   }
 
   if (loading) {
-    return <p className="text-sm text-[var(--color-ink-secondary)]">Loading…</p>;
+    return <p className="text-sm text-[var(--color-ink-secondary)]">Cargando…</p>;
   }
 
   if (loadError) {
@@ -69,13 +69,13 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Configuration Settings</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Configuración</h1>
 
       <form onSubmit={handleSubmit} className="mt-6 flex max-w-lg flex-col gap-4">
         <LogoUpload value={settings.logoUrl} onChange={(url) => update("logoUrl", url)} />
 
         <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-          Business name
+          Nombre del negocio
           <input
             value={settings.businessName}
             onChange={(event) => update("businessName", event.target.value)}
@@ -84,7 +84,7 @@ export default function SettingsPage() {
         </label>
 
         <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-          Address
+          Dirección
           <input
             value={settings.address}
             onChange={(event) => update("address", event.target.value)}
@@ -93,7 +93,7 @@ export default function SettingsPage() {
         </label>
 
         <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-          Phone
+          Teléfono
           <input
             value={settings.phone}
             onChange={(event) => update("phone", event.target.value)}
@@ -102,7 +102,7 @@ export default function SettingsPage() {
         </label>
 
         <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
-          WhatsApp number
+          Número de WhatsApp
           <input
             value={settings.whatsappNumber}
             onChange={(event) => update("whatsappNumber", event.target.value)}
@@ -111,14 +111,14 @@ export default function SettingsPage() {
         </label>
 
         {saveError && <p className="text-sm text-[var(--color-accent-red-text)]">{saveError}</p>}
-        {saved && <p className="text-sm text-[var(--color-accent-teal)]">Settings saved.</p>}
+        {saved && <p className="text-sm text-[var(--color-accent-teal)]">Configuración guardada.</p>}
 
         <button
           type="submit"
           disabled={saving}
           className="self-start rounded-md bg-[var(--color-accent-teal)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)] disabled:opacity-60"
         >
-          {saving ? "Saving…" : "Save settings"}
+          {saving ? "Guardando…" : "Guardar configuración"}
         </button>
       </form>
     </div>

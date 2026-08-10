@@ -32,6 +32,31 @@ service cloud.firestore {
         && request.resource.data.createdAt is timestamp;
     }
 
+    match /qualifiedLeads/{leadId} {
+      allow read, update, delete: if isAdmin();
+      allow create: if request.resource.data.keys().hasOnly(
+          ['acquisitionSource', 'timeframe', 'propertyUsage', 'preferredAreas', 'propertySize',
+           'budgetRange', 'name', 'email', 'phone', 'readinessScore', 'leadTemperature', 'status', 'createdAt']
+        )
+        && request.resource.data.keys().hasAll(
+          ['acquisitionSource', 'timeframe', 'propertyUsage', 'preferredAreas', 'propertySize',
+           'budgetRange', 'name', 'email', 'phone', 'readinessScore', 'leadTemperature', 'status', 'createdAt']
+        )
+        && request.resource.data.status == 'new'
+        && request.resource.data.acquisitionSource is string && request.resource.data.acquisitionSource.size() > 0 && request.resource.data.acquisitionSource.size() <= 100
+        && request.resource.data.timeframe is string && request.resource.data.timeframe.size() > 0 && request.resource.data.timeframe.size() <= 100
+        && request.resource.data.propertyUsage is string && request.resource.data.propertyUsage.size() > 0 && request.resource.data.propertyUsage.size() <= 100
+        && request.resource.data.preferredAreas is list && request.resource.data.preferredAreas.size() <= 10
+        && request.resource.data.propertySize is string && request.resource.data.propertySize.size() > 0 && request.resource.data.propertySize.size() <= 100
+        && request.resource.data.budgetRange is string && request.resource.data.budgetRange.size() > 0 && request.resource.data.budgetRange.size() <= 100
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 200
+        && request.resource.data.email is string && request.resource.data.email.size() > 0 && request.resource.data.email.size() <= 200
+        && request.resource.data.phone is string && request.resource.data.phone.size() > 0 && request.resource.data.phone.size() <= 50
+        && request.resource.data.readinessScore is int && request.resource.data.readinessScore >= 0 && request.resource.data.readinessScore <= 100
+        && request.resource.data.leadTemperature in ['hot', 'warm']
+        && request.resource.data.createdAt is timestamp;
+    }
+
     match /settings/{settingId} {
       allow read, write: if isAdmin();
     }

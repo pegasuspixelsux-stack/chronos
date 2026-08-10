@@ -6,6 +6,7 @@ import CuratedSelectionCTA from "@/components/CuratedSelectionCTA";
 import TestimonialsMarquee from "@/components/TestimonialsMarquee";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
+import ScrollReveal from "@/components/ScrollReveal";
 import { getHeroSliderProperties } from "@/lib/properties";
 import type { Property } from "@/lib/types";
 
@@ -22,12 +23,24 @@ export default async function Home() {
   return (
     <>
       {sliderProperties.length > 0 ? <HeroSlider properties={sliderProperties} /> : <Hero />}
-      <TrustSection />
-      <PreferredAreas />
-      <CuratedSelectionCTA />
-      <TestimonialsMarquee />
-      <FAQSection />
-      <ContactSection />
+      <ScrollReveal>
+        <TrustSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <PreferredAreas />
+      </ScrollReveal>
+      <ScrollReveal>
+        <CuratedSelectionCTA />
+      </ScrollReveal>
+      <ScrollReveal>
+        <TestimonialsMarquee />
+      </ScrollReveal>
+      <ScrollReveal>
+        <FAQSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ContactSection />
+      </ScrollReveal>
     </>
   );
 }

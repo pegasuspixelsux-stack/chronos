@@ -52,14 +52,14 @@ export default function PreferredAreas() {
             <Link
               key={area.name}
               href={{ pathname: "/properties", query: { location: area.name } }}
-              className={`group relative block h-64 overflow-hidden rounded-xl bg-[var(--color-bone)] sm:h-auto ${area.span}`}
+              className={`group relative block h-64 overflow-hidden rounded-xl bg-[var(--color-bone)] shadow-sm transition-[transform,box-shadow] duration-300 ease-out will-change-transform hover:-translate-y-1 hover:shadow-lg sm:h-auto ${area.span}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://picsum.photos/seed/${area.imageSeed}/1200/1200`}
                 alt=""
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 ease-in-out will-change-transform group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">

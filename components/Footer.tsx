@@ -20,14 +20,14 @@ export default async function Footer() {
 
   return (
     <footer className="border-t border-[var(--color-border)] bg-[var(--color-bone)]">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-12 text-sm text-[var(--color-ink-secondary)] sm:grid-cols-3">
-        <div>
+      <div className="mx-auto flex max-w-6xl flex-col flex-wrap gap-8 px-6 py-12 text-sm text-[var(--color-ink-secondary)] sm:flex-row sm:justify-between">
+        <div className="sm:max-w-xs">
           <p className="text-base font-bold text-[var(--color-ink)]">Chronos</p>
           <p className="mt-2">Asesoría inmobiliaria boutique en Punta del Este.</p>
         </div>
 
         {hasContactDetails && (
-          <div>
+          <div className="sm:max-w-xs">
             <p className="text-sm font-semibold text-[var(--color-ink)]">Contacto</p>
             <ul className="mt-2 flex flex-col gap-1.5">
               {address && <li>{address}</li>}
@@ -65,7 +65,7 @@ export default async function Footer() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2 sm:items-end">
+        <div className="flex flex-col gap-2 sm:items-end sm:text-right">
           <p>&copy; {new Date().getFullYear()} Chronos Real Estate. Todos los derechos reservados.</p>
           <Link href="/admin/login" className="transition-colors hover:text-[var(--color-ink)]">
             Administración

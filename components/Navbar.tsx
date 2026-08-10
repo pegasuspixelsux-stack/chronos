@@ -8,14 +8,14 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-bone)]/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-bone)]/20 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link href="/" className="text-xl font-bold tracking-tight text-[var(--color-ink)]">
+        <Link href="/" className="text-xl font-bold tracking-tight text-white">
           Chronos
         </Link>
-        <nav className="hidden gap-8 text-sm text-[var(--color-ink-secondary)] sm:flex">
+        <nav className="hidden gap-8 text-sm text-white/80 sm:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="transition-colors hover:text-[var(--color-ink)]">
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-white">
               {link.label}
             </Link>
           ))}

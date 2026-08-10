@@ -25,3 +25,12 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   line-height: 1.6;
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

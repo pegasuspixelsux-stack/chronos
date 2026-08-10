@@ -38,7 +38,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
             })`,
           }}
         >
-          <div className="absolute bottom-8 left-[10px] max-w-xl sm:left-8">
+          <div className="absolute bottom-8 left-[15px] max-w-xl sm:left-8">
             <h2 className="text-3xl font-bold text-white md:text-4xl">{property.title}</h2>
             <p className="mt-2 text-lg text-gray-200">
               {property.location} &middot; {formatPrice(property.price)}
@@ -57,7 +57,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
       ))}
 
       {properties.length > 1 && (
-        <div className="absolute right-[10px] bottom-4 flex gap-2 sm:right-8">
+        <div className="absolute right-[15px] bottom-4 flex gap-2 sm:right-8">
           {properties.map((property, index) => (
             <button
               key={property.id}

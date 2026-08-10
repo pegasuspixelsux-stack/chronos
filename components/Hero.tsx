@@ -8,7 +8,7 @@ export default function Hero() {
         backgroundImage: `linear-gradient(to top right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 80%), url(${HERO_IMAGE_URL})`,
       }}
     >
-      <div className="absolute bottom-8 left-[10px] max-w-xl sm:left-8">
+      <div className="absolute bottom-8 left-[15px] max-w-xl sm:left-8">
         <h1 className="text-3xl font-bold text-white md:text-4xl">
           Find a home that fits your next chapter.
         </h1>

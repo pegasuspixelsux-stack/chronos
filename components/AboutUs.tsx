@@ -19,7 +19,7 @@ export default function AboutUs() {
   return (
     <section
       id="about"
-      className="border-t border-[var(--color-border)] bg-[var(--color-surface)] px-[10px] py-24 sm:px-6"
+      className="border-t border-[var(--color-border)] bg-[var(--color-surface)] px-[15px] py-24 sm:px-6"
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">

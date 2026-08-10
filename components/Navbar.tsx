@@ -8,7 +8,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bone)]/20 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bone)]/50 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <Link href="/" className="text-xl font-bold tracking-tight text-white">
           Chronos

@@ -56,6 +56,7 @@ export interface SiteSettings {
   address: string;
   phone: string;
   whatsappNumber: string;
+  contactEmail: string;
 }
 
 export interface AdminEntry {

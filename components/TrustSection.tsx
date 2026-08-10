@@ -15,7 +15,7 @@ const PILLARS = [
 
 export default function TrustSection() {
   return (
-    <section className="mx-auto max-w-6xl px-[15px] py-20 sm:px-6 sm:py-24">
+    <section id="about" className="mx-auto max-w-6xl px-[15px] py-20 sm:px-6 sm:py-24">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">

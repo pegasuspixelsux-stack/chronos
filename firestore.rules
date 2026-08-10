@@ -58,7 +58,17 @@ service cloud.firestore {
     }
 
     match /settings/{settingId} {
-      allow read, write: if isAdmin();
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.data.keys().hasOnly(
+          ['logoUrl', 'businessName', 'address', 'phone', 'whatsappNumber', 'contactEmail']
+        )
+        && request.resource.data.logoUrl is string && request.resource.data.logoUrl.size() <= 2000
+        && request.resource.data.businessName is string && request.resource.data.businessName.size() <= 200
+        && request.resource.data.address is string && request.resource.data.address.size() <= 300
+        && request.resource.data.phone is string && request.resource.data.phone.size() <= 50
+        && request.resource.data.whatsappNumber is string && request.resource.data.whatsappNumber.size() <= 50
+        && request.resource.data.contactEmail is string && request.resource.data.contactEmail.size() <= 200;
     }
 
     function isAdmin() {

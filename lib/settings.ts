@@ -15,6 +15,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
     address: data.address ?? "",
     phone: data.phone ?? "",
     whatsappNumber: data.whatsappNumber ?? "",
+    contactEmail: data.contactEmail ?? "",
   };
 }
 

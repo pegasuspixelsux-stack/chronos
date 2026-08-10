@@ -423,7 +423,7 @@ export default function CuratedSelectionModal({ isOpen, onClose }: { isOpen: boo
                 disabled={!canSubmit}
                 className="rounded-md bg-[var(--color-accent-teal)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {submitting ? "Enviando…" : "Recibir mi selección curada"}
+                {submitting ? "Enviando…" : "Solicitar mi selección curada"}
               </button>
             )}
           </div>

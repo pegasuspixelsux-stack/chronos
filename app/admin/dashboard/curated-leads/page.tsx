@@ -72,7 +72,7 @@ export default function CuratedLeadsPage() {
     <div>
       <h1 className="text-2xl font-bold tracking-tight text-[var(--color-ink)]">Leads de Selección Curada</h1>
       <p className="mt-1 text-sm text-[var(--color-ink-secondary)]">
-        Respuestas del cuestionario &ldquo;Recibir mi selección curada&rdquo;, clasificadas automáticamente en
+        Respuestas del cuestionario &ldquo;Solicitar mi selección curada&rdquo;, clasificadas automáticamente en
         leads calientes y tibios. {hotCount > 0 && `${hotCount} lead${hotCount === 1 ? "" : "s"} caliente${hotCount === 1 ? "" : "s"} esperando.`}
       </p>
 

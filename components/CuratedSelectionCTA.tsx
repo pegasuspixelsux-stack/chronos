@@ -14,15 +14,17 @@ export default function CuratedSelectionCTA() {
             Asesoría Inmobiliaria Boutique
           </span>
           <h2 className="mt-4 text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
-            No pierda tiempo buscando entre cientos de propiedades. Deje que nuestros expertos seleccionen la
-            ideal para usted.
+            Permita que nuestros expertos seleccionen la propiedad ideal para usted.
           </h2>
           <p className="mt-3 text-[var(--color-ink-secondary)]">
-            Si prefiere explorar por su cuenta, puede recorrer libremente nuestra lista completa de propiedades
-            en el inventario. Pero si busca eficiencia, le invitamos a aprovechar nuestra experiencia y profundo
-            conocimiento del mercado. Uno de nuestros asesores analizará sus preferencias, su propósito de
-            inversión y sus expectativas para entregarle una selección curada y a la medida, evitando que pierda
-            tiempo en opciones que no se adaptan a lo que realmente necesita lograr.
+            Si prefiere explorar de manera independiente, puede recorrer en cualquier momento la lista completa
+            de nuestro inventario. Sin embargo, le invitamos a aprovechar la experiencia y el profundo
+            conocimiento de nuestros asesores.
+          </p>
+          <p className="mt-3 text-[var(--color-ink-secondary)]">
+            Comparta con nosotros sus preferencias y los objetivos que desea alcanzar, y nos encargaremos de
+            poner nuestra trayectoria a su servicio para entregarle una selección curada y perfectamente
+            alineada con lo que está buscando.
           </p>
         </div>
         <button
@@ -30,7 +32,7 @@ export default function CuratedSelectionCTA() {
           onClick={() => setIsOpen(true)}
           className="inline-flex flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-accent-teal)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)]"
         >
-          Recibir mi selección curada
+          Solicitar mi selección curada
         </button>
       </div>
 

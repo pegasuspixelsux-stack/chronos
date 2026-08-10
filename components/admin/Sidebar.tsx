@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   Settings,
+  Sparkles,
   UserCheck,
   Users,
 } from "lucide-react";
@@ -19,6 +20,7 @@ const NAV_ITEMS = [
   { href: "/admin/dashboard", label: "Control Panel", icon: LayoutDashboard },
   { href: "/admin/dashboard/properties", label: "Properties", icon: Building2 },
   { href: "/admin/dashboard/leads", label: "Leads", icon: Users },
+  { href: "/admin/dashboard/curated-leads", label: "Curated Leads", icon: Sparkles },
   { href: "/admin/dashboard/users", label: "Users", icon: UserCheck },
   { href: "/admin/dashboard/settings", label: "Configuration Settings", icon: Settings },
 ];

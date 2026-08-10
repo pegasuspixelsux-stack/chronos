@@ -35,9 +35,9 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col lg:flex-row">
       <Sidebar userEmail={user.email ?? ""} />
-      <main className="flex-1 overflow-y-auto px-8 py-8">{children}</main>
+      <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-8 sm:py-8">{children}</main>
     </div>
   );
 }

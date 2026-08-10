@@ -10,11 +10,11 @@ export default function Hero() {
     >
       <div className="absolute bottom-8 left-[15px] max-w-xl sm:left-8">
         <h1 className="text-3xl font-bold text-white md:text-4xl">
-          Find a home that fits your next chapter.
+          Encontrá el hogar que se ajusta a tu próximo capítulo.
         </h1>
         <p className="mt-2 text-lg text-gray-200">
-          Chronos curates verified listings across houses, apartments, and land — so you spend less time
-          searching and more time deciding.
+          Chronos selecciona propiedades verificadas entre casas, apartamentos y terrenos, para dedicar menos
+          tiempo a buscar y más tiempo a decidir.
         </p>
       </div>
     </section>

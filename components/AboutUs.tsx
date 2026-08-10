@@ -1,17 +1,17 @@
 const VALUES = [
   {
-    title: "Verified listings",
+    title: "Propiedades verificadas",
     description:
-      "Every property on Chronos is reviewed by our team before it goes live, so what you see is what's actually for sale.",
+      "Cada propiedad en Chronos es revisada por nuestro equipo antes de publicarse, así lo que ves es realmente lo que está en venta.",
   },
   {
-    title: "Local expertise",
+    title: "Conocimiento local",
     description:
-      "Our agents work the neighborhoods they list in, and can walk you through zoning, resale value, and commute realities.",
+      "Nuestros asesores trabajan en los mismos barrios que representan, y pueden guiarte en zonificación, valor de reventa y tiempos de traslado.",
   },
   {
-    title: "No pressure process",
-    description: "Browse, shortlist, and inquire on your own timeline. We follow up when you ask us to, not before.",
+    title: "Sin presión",
+    description: "Explorá, preseleccioná y consultá a tu propio ritmo. Te contactamos solo cuando lo pedís, no antes.",
   },
 ];
 
@@ -24,11 +24,12 @@ export default function AboutUs() {
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
-            Built on trust, not just transactions
+            Construido sobre la confianza, no solo transacciones
           </h2>
           <p className="mt-4 text-[var(--color-ink-secondary)]">
-            Chronos has helped buyers and renters navigate the market since day one. We keep our catalog small
-            enough to vet personally, and large enough to give you real choice.
+            Desde el primer día, Chronos acompaña a compradores e inquilinos en el mercado inmobiliario.
+            Mantenemos un catálogo lo suficientemente selecto como para verificar cada propiedad
+            personalmente, y lo suficientemente amplio como para ofrecerte opciones reales.
           </p>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">

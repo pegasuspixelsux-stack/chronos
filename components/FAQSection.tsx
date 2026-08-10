@@ -51,7 +51,7 @@ const FAQ_ITEMS = [
   {
     question: "¿Cómo puedo coordinar una visita a una propiedad o agendar una reunión con un asesor?",
     answer:
-      "Puedes solicitar una visita directamente a través de los canales de contacto de nuestro sitio web o iniciar sesión en el portal para coordinar una atención preferencial con un ejecutivo de cuenta.",
+      "Podés solicitar una visita directamente a través de los canales de contacto de nuestro sitio web o iniciar sesión en el portal para coordinar una atención preferencial con un ejecutivo de cuenta.",
   },
 ];
 
@@ -65,11 +65,11 @@ export default function FAQSection() {
           Preguntas Frecuentes
         </h2>
         <p className="mt-4 text-[var(--color-ink-secondary)]">
-          Todo lo que necesitas saber sobre nuestros servicios de gestión inmobiliaria, compra, venta y
+          Todo lo que necesitás saber sobre nuestros servicios de gestión inmobiliaria, compra, venta y
           administración de propiedades en Punta del Este.
         </p>
         <p className="mt-2 text-[var(--color-ink-secondary)]">
-          Si tienes alguna consulta adicional que no figure en este listado, nuestro equipo de asesores está
+          Si tenés alguna consulta adicional que no figure en este listado, nuestro equipo de asesores está
           disponible para atenderte de manera personalizada.
         </p>
 

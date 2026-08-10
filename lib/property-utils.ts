@@ -30,7 +30,7 @@ export function mapDocToProperty(id: string, data: DocumentData): Property {
 }
 
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("es-UY", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,

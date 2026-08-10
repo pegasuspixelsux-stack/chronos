@@ -169,7 +169,7 @@ export default function CuratedSelectionModal({ isOpen, onClose }: { isOpen: boo
       });
       setSubmitted(true);
     } catch {
-      setError("No pudimos enviar tu selección. Verifica tu conexión e intenta nuevamente.");
+      setError("No pudimos enviar tu selección. Verificá tu conexión e intentá nuevamente.");
     } finally {
       setSubmitting(false);
     }

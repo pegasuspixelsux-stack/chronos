@@ -44,7 +44,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
               {property.location} &middot; {formatPrice(property.price)}
             </p>
             <p className="mt-1 text-sm text-gray-300">
-              {property.bedrooms} bd &middot; {property.bathrooms} ba &middot; {property.areaSqm} m²
+              {property.bedrooms} dorm. &middot; {property.bathrooms} baños &middot; {property.areaSqm} m²
             </p>
             <Link
               href={`/properties/${property.id}`}
@@ -63,7 +63,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
               key={property.id}
               type="button"
               onClick={() => setCurrentIndex(index)}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Ir a la diapositiva ${index + 1}`}
               aria-current={index === currentIndex}
               className={`h-1.5 w-10 rounded-full transition-colors ${
                 index === currentIndex ? "bg-white" : "bg-white/40"

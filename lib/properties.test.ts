@@ -66,8 +66,8 @@ describe("mapDocToProperty", () => {
 });
 
 describe("formatPrice", () => {
-  it("formats a number as whole-dollar USD currency", () => {
-    expect(formatPrice(250000)).toBe("$250,000");
+  it("formats a number as whole-dollar USD currency using Uruguayan Spanish conventions", () => {
+    expect(formatPrice(250000)).toBe("US$ 250.000");
   });
 });
 

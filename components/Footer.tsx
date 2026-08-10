@@ -6,9 +6,9 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-12 text-sm text-[var(--color-ink-secondary)] sm:flex-row sm:items-center sm:justify-between">
         <p className="text-base font-bold text-[var(--color-ink)]">Chronos</p>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
-          <p>&copy; {new Date().getFullYear()} Chronos Real Estate. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Chronos Real Estate. Todos los derechos reservados.</p>
           <Link href="/admin/login" className="transition-colors hover:text-[var(--color-ink)]">
-            Admin
+            Administración
           </Link>
         </div>
       </div>

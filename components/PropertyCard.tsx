@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { formatPrice } from "@/lib/properties";
-import type { Property } from "@/lib/types";
+import type { Property, PropertyType } from "@/lib/types";
+
+const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
+  House: "Casa",
+  Apartment: "Apartamento",
+  Plot: "Terreno",
+};
 
 export default function PropertyCard({ property }: { property: Property }) {
   return (
@@ -18,18 +24,20 @@ export default function PropertyCard({ property }: { property: Property }) {
         />
         {property.featured && (
           <span className="absolute left-3 top-3 rounded-full bg-[var(--color-accent-teal)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-            Featured
+            Destacada
           </span>
         )}
       </div>
       <div className="p-5">
-        <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">{property.propertyType}</p>
+        <p className="text-xs uppercase tracking-wide text-[var(--color-ink-secondary)]">
+          {PROPERTY_TYPE_LABELS[property.propertyType]}
+        </p>
         <h3 className="mt-1 text-lg font-semibold text-[var(--color-ink)]">{property.title}</h3>
         <p className="mt-1 text-sm text-[var(--color-ink-secondary)]">{property.location}</p>
         <div className="mt-4 flex items-center justify-between text-sm text-[var(--color-ink-secondary)]">
           <span className="text-base font-bold text-[var(--color-ink)]">{formatPrice(property.price)}</span>
           <span>
-            {property.bedrooms} bd &middot; {property.bathrooms} ba &middot; {property.areaSqm} m²
+            {property.bedrooms} dorm. &middot; {property.bathrooms} baños &middot; {property.areaSqm} m²
           </span>
         </div>
       </div>

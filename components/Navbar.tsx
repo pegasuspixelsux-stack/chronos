@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/properties", label: "Properties" },
-  { href: "/#about", label: "About" },
+  { href: "/", label: "Inicio" },
+  { href: "/properties", label: "Propiedades" },
+  { href: "/#about", label: "Nosotros" },
 ];
 
 export default function Navbar() {
@@ -36,14 +36,14 @@ export default function Navbar() {
           href="/properties"
           className="hidden rounded-md bg-[var(--color-accent-teal)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)] sm:inline-flex"
         >
-          Browse listings
+          Ver propiedades
         </Link>
         <button
           type="button"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav-menu"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
           className="flex h-9 w-9 items-center justify-center text-white sm:hidden"
         >
           <svg
@@ -81,7 +81,7 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
             className="mt-2 inline-flex items-center justify-center rounded-md bg-[var(--color-accent-teal)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-teal-hover)]"
           >
-            Browse listings
+            Ver propiedades
           </Link>
         </nav>
       )}

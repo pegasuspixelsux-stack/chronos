@@ -23,7 +23,7 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
   }
 
   return (
-    <section className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
+    <section className="relative h-[90vh] min-h-[480px] w-full overflow-hidden">
       {properties.map((property, index) => (
         <div
           key={property.id}

@@ -22,14 +22,6 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
     return null;
   }
 
-  function goToPrevious() {
-    setCurrentIndex((prev) => (prev - 1 + properties.length) % properties.length);
-  }
-
-  function goToNext() {
-    setCurrentIndex((prev) => (prev + 1) % properties.length);
-  }
-
   return (
     <section className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
       {properties.map((property, index) => (
@@ -65,43 +57,20 @@ export default function HeroSlider({ properties }: { properties: Property[] }) {
       ))}
 
       {properties.length > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={goToPrevious}
-            aria-label="Previous slide"
-            className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
-              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={goToNext}
-            aria-label="Next slide"
-            className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
-              <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-
-          <div className="absolute bottom-4 right-8 flex gap-2">
-            {properties.map((property, index) => (
-              <button
-                key={property.id}
-                type="button"
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                aria-current={index === currentIndex}
-                className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-white" : "bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-        </>
+        <div className="absolute bottom-4 right-8 flex gap-2">
+          {properties.map((property, index) => (
+            <button
+              key={property.id}
+              type="button"
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-current={index === currentIndex}
+              className={`h-1.5 w-10 rounded-full transition-colors ${
+                index === currentIndex ? "bg-white" : "bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
       )}
     </section>
   );

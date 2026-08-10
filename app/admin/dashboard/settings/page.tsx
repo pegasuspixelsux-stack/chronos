@@ -12,6 +12,7 @@ const EMPTY_SETTINGS: SiteSettings = {
   phone: "",
   whatsappNumber: "",
   contactEmail: "",
+  businessHours: "",
 };
 
 export default function SettingsPage() {
@@ -117,6 +118,16 @@ export default function SettingsPage() {
             type="email"
             value={settings.contactEmail}
             onChange={(event) => update("contactEmail", event.target.value)}
+            className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
+          />
+        </label>
+
+        <label className="flex flex-col gap-1 text-sm text-[var(--color-ink)]">
+          Horario de atención
+          <input
+            value={settings.businessHours}
+            onChange={(event) => update("businessHours", event.target.value)}
+            placeholder="Lun a Vie 9:00 - 18:00"
             className="rounded-md border border-[var(--color-border)] px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-teal)] focus-visible:ring-offset-1"
           />
         </label>

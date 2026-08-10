@@ -57,6 +57,7 @@ export interface SiteSettings {
   phone: string;
   whatsappNumber: string;
   contactEmail: string;
+  businessHours: string;
 }
 
 export interface AdminEntry {

@@ -16,6 +16,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
     phone: data.phone ?? "",
     whatsappNumber: data.whatsappNumber ?? "",
     contactEmail: data.contactEmail ?? "",
+    businessHours: data.businessHours ?? "",
   };
 }
 

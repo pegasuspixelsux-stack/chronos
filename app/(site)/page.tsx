@@ -3,6 +3,7 @@ import HeroSlider from "@/components/HeroSlider";
 import TrustSection from "@/components/TrustSection";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import AboutUs from "@/components/AboutUs";
+import FAQSection from "@/components/FAQSection";
 import { getHeroSliderProperties } from "@/lib/properties";
 import type { Property } from "@/lib/types";
 
@@ -22,6 +23,7 @@ export default async function Home() {
       <TrustSection />
       <FeaturedProperties />
       <AboutUs />
+      <FAQSection />
     </>
   );
 }

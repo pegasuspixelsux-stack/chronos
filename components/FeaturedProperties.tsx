@@ -12,7 +12,7 @@ export default async function FeaturedProperties() {
   }
 
   return (
-    <section id="featured" className="mx-auto max-w-6xl px-6 py-24">
+    <section id="featured" className="mx-auto max-w-6xl px-[10px] py-24 sm:px-6">
       <h2 className="text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">Featured listings</h2>
 
       {loadError ? (
